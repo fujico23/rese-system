@@ -1,0 +1,55 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffecb3; /* 明るい黄色の背景 */
+  color: #4E342E; /* 濃い茶色のテキスト */
+  padding: 20px;
+}
+
+.container {
+  background-color: #fff3e0;
+  border: 2px solid #ffab91;
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.heading {
+  font-size: 24px;
+  color: #bf360c; 
+  text-align: center;
+}
+
+.body {
+  text-align: center;
+}
+
+.content {
+  margin-top: 20px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+span {
+    color: red;
+    font-weight: bold;
+}
+
+.content__list {
+  background-color: #fff;
+  border-radius: 3px;
+  text-align: center;
+  list-style: none;
+  margin: 10px auto;
+  padding: 5px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.footer {
+  margin-top: 30px;
+  font-size: 12px;
+  text-align: center;
+  color: #8d6e63;
+}

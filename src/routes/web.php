@@ -9,9 +9,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminMailController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
-
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -25,6 +26,13 @@ use App\Http\Controllers\ManagementController;
 |
 */
 
+//Fortifyの認証機能をオーバーライドして認証
+$limiter = '15,60';
+Route::post('/login', [LoginController::class, 'store'])
+        ->middleware(([
+            'guest',
+            $limiter ? 'throttle:'.$limiter : null,
+        ]));
 
 //'role'にて全ページに配置されているメニューバーをrole_idによって変更
 Route::middleware('role')->group(function () {
@@ -89,5 +97,7 @@ Route::middleware('role')->group(function () {
         Route::get('admin/shop/create', [ShopController::class, 'create'])->name('shop.create');
         Route::post('admin/shop/post', [ShopController::class, 'store'])->name('shops.store');
         Route::delete('admin/shop/delete', [ShopController::class, 'destroy'])->name('shop.delete');
+        Route::post('admin/users/{user}/mail', [AdminMailController::class, 'send'])->name('admin.users.mail');
+        Route::post('admin/users/mail', [AdminMailController::class, 'sendToAllUsers'])->name('admin.all.users.mail');
     });
 });

@@ -53,9 +53,4 @@
   </div>
   @endforeach
 </div>
-
-
-
-
-
 @endsection

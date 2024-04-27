@@ -38,7 +38,7 @@ return [
     'digits_between'       => ':attributeは、:min桁から:max桁にしてください。',
     'dimensions'           => ':attributeの画像サイズが無効です',
     'distinct'             => ':attributeの値が重複しています。',
-    'email'                => ':メールアドレスは、有効なメールアドレス形式で指定してください。',
+    'email'                => ':メールアドレスは有効なメールアドレス形式で指定してください',
     'ends_with'            => ':attributeは、次のうちのいずれかで終わらなければなりません。: :values',
     'exists'               => '選択された:attributeは、有効ではありません。',
     'file'                 => ':attributeはファイルでなければいけません。',
@@ -86,7 +86,7 @@ return [
     'min'                  => [
         'numeric' => ':attributeには、:min以上の数字を指定してください。',
         'file'    => ':attributeには、:min KB以上のファイルを指定してください。',
-        'string'  => ':attributeは、:min文字以上にしてください。',
+        'string'  => ':attributeは:min文字以上にしてください',
         'array'   => ':attributeの項目は、:min個以上にしてください。',
     ],
     'multiple_of'          => 'The :attribute must be a multiple of :value',
@@ -96,7 +96,7 @@ return [
     'password'             => 'パスワードが正しくありません。',
     'present'              => ':attributeが存在している必要があります。',
     'regex'                => ':attributeには、有効な正規表現を指定してください。',
-    'required'             => ':attributeは、必ず指定してください。',
+    'required'             => ':attributeは必須です。',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
     'required_unless'      => ':otherが:values以外の場合、:attributeを指定してください。',
     'required_with'        => ':valuesが指定されている場合、:attributeも指定してください。',
@@ -113,7 +113,7 @@ return [
     'starts_with'          => ':attributeは、次のいずれかで始まる必要があります。:values',
     'string'               => ':attributeには、文字を指定してください。',
     'timezone'             => ':attributeには、有効なタイムゾーンを指定してください。',
-    'unique'               => '指定の:attributeは既に使用されています。',
+    'unique'               => '指定の:attributeは既に使用されています',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
     'uuid'                 => ':attributeは、有効なUUIDでなければなりません。',
@@ -134,11 +134,11 @@ return [
             'ルール名' => 'カスタムメッセージ',
         ],
         'email' => [
-            'required' => ':attributeは必須です。',
-            'email' => 'attributeには、有効なメールアドレスを指定してください。'
+            'required' => ':attributeは必須です',
+            'email' => 'attributeには有効なメールアドレスを指定してください'
         ],
         'password' => [
-            'required' => ':attributeは必須です。',
+            'required' => ':attributeは必須です',
         ],
         ],
 

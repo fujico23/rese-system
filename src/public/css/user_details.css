@@ -47,16 +47,20 @@ body {
 /* フォームのスタイル */
 .user-detail__container__table-row__form-patch,
 .user-detail__container__table-row__form-post,
-.user-detail__container__table-row__form-delete
+.user-detail__container__table-row__form-delete,
+.user-detail__container__table-row__form-submit
  {
   display: flex;
   justify-content: space-between;
+  text-align: center;
+  height: 100%;
 }
 
-select, input[type="text"], button {
+select, input[type="text"]{
   padding: 8px;
   margin-right: 10px;
   cursor: pointer;
+
 }
 .user-detail__container__table-shop-select {
   width: 50%;
@@ -90,14 +94,36 @@ select, input[type="text"], button {
   border: none;
   cursor: pointer;
   transition: background 0.3s ease;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 14px;
+  height: 70%;
+  cursor: pointer;
+  align-self: center;
 }
 
 .user-detail__container__table__btn-patch:hover,
 .user-detail__container__table__btn-post:hover,
 .user-detail__container__table__btn-delete:hover {
-  background-color: #ff5722;
+  opacity: 0.7;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
+.user-detail__container__table__btn-submit {
+  background-color: #FFB74C;
+  color: rgb(75, 75, 75);
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 14px;
+  cursor: pointer;
+  align-self: center;
+}
+.user-detail__container__table__btn-submit:hover {
+  opacity: 0.7;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
 /* 特定のユーザーロールやショップ名を強調 */
 .user-details__container__table-row__detail form {
   display: flex;

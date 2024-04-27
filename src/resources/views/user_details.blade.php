@@ -99,8 +99,16 @@
 
                 @endif
                 <tr class="user-detail__container__table-row">
-                    <th class="user-detail__container__table-row__header">レビュー一覧</th>
-                    <td class="user-detail__container__table-row__detail"></td>
+                    <th class="user-detail__container__table-row__header">メール送信</th>
+                    <td class="user-detail__container__table-row__detail">
+                        <form  class="user-detail__container__table-row__form-submit" action="{{ route('admin.users.mail', $user)  }}" method="post">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ $user->email }}">
+                            <label for="message">メッセージ:</label>
+                            <textarea id="message" name="message"></textarea>
+                            <button class="user-detail__container__table__btn-submit" type="submit">送信</button>
+                        </form>
+                    </td>
                 </tr>
             </div>
         </table>

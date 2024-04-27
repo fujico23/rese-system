@@ -17,7 +17,7 @@
   }
 
   .auth-form__group {
-    margin: 20px auto;
+    margin: 20px auto 0px;
     width: 100%;
     display: flex;
     align-items: center;

@@ -32,7 +32,6 @@ class ReservationReminder extends Mailable
      */
     public function build()
     {
-        //return $this->view('view.name');
         return $this->view('emails.reservation_reminder')
         ->with([
             'reservationDate' => $this->reservation->reservation_date,

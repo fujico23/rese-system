@@ -7,7 +7,20 @@
 @section('content')
 <div class="admin">
     <h2 class="admin__header">管理者画面</h2>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="admin__container">
+        <form method="POST" action="{{ route('admin.all.users.mail') }}">
+            @csrf <!-- CSRF トークン -->
+            <button type="submit" class="admin__container__send-mail-button">一斉メール送信</button>
+        </form>
         <table class="admin__container__table">
             <div class="admin__table__inner">
                 <tr class="admin__container__table-row">

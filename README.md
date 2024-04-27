@@ -96,11 +96,17 @@
 - composer install
 - .env.exampleファイルから.envを作成し、環境変数を変更
 - php artisan key:generate
+
 - composer require laravel/fortify
 - php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-- php artisan migrate
+
 - composer require laravel-lang/lang:~7.0 --dev
 - cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
+
+- composer require "ext-gd:*" --ignore-platform-reqs
+- composer require simplesoftwareio/simple-qrcode --ignore-platform-req=ext-gd
+
+- php artisan migrate
 #### seederファイル実行コマンド
 - php artisan db:seed --class=GenresTableSeeder
 - php artisan db:seed --class=AreasTableSeeder

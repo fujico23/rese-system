@@ -16,6 +16,10 @@
     margin-bottom: 20px;
 }
 
+.alert {
+    margin-bottom: 10px;
+}
+
 /* コンテナのスタイリング */
 .admin__container {
     width: 80%;
@@ -23,6 +27,21 @@
     background-color: #ffffff;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin__container__send-mail-button {
+    float: right;
+    background-color: #FFB74C;
+    color: rgb(75, 75, 75);
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+.admin__container__send-mail-button:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 /* テーブルスタイリング */
@@ -52,24 +71,29 @@
 /* リンクスタイリング */
 .admin__container__table-row__detail a {
     display: inline-block;
-    padding: 2px 7px;
-    border-radius: 2px;
     background-color: #ff4500;
     color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 14px;
     text-decoration: none;
     transition: background 0.3s ease;
 }
 
 .admin__container__table-row__detail a:hover {
-    background-color: #ff5722;
-    cursor: pointer;
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .admin__container {
         width: 95%;
-        padding: 10px;
+        padding: 5px;
     }
 
 }
