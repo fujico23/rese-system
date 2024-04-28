@@ -130,9 +130,11 @@
 - DB_CONNECTION=mysql
 - DB_HOST=mysql
 - DB_PORT=3306
-- DB_DATABASE=RDSのデータベース名に変更
-- DB_USERNAME=RDSのユーザー名に変更
-- DB_PASSWORD=RDSのパスワードに変更
+- DB_DATABASE=RDSのデータベース名
+- DB_USERNAME=RDSのユーザー名
+- DB_PASSWORD=RDSのパスワード
+
+- FILESYSTEM_DRIVER=s3
 
 - MAIL_MAILER=ses
 - MAIL_HOST=email-smtp.ap-northeast-1.amazonaws.com
@@ -146,6 +148,8 @@
 - AWS_ACCESS_KEY_ID=SESのSMTP認証情報から作成したIAMで作成したアクセスキー
 - AWS_SECRET_ACCESS_KEY=SESのSMTP認証情報から作成したIAMで作成したシークレットアクセスキー
 - AWS_DEFAULT_REGION=ap-northeast-1
+- AWS_BUCKET=//S3のバケット名
+- AWS_USE_PATH_STYLE_ENDPOINT=false
 
 ## **テーブル設計**
 ![](./table.drawio.svg)

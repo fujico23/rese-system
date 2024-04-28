@@ -18,6 +18,8 @@
         <img src="{{ $shop->images->first()->image_url }}" alt="{{ $shop->shop_name }}">
         @else
         <img src="{{ asset('storage/' . $shop->images->first()->image_url) }}" alt="{{ $shop->shop_name }}">
+        <!-- 本番環境の場合
+        <img src="{{ Storage::url($shop->images->first()->image_url) }}" alt="{{ $shop->shop_name }}"> -->
         @endif
         @else
         <p>準備中です</p>

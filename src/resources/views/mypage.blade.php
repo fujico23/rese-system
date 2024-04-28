@@ -90,6 +90,8 @@
                     <img src="{{ $favorite->shop->images->first()->image_url }}" alt="{{ $favorite->shop->shop_name }}">
                     @else
                     <img src="{{ asset('storage/' . $favorite->shop->images->first()->image_url) }}" alt="{{ $favorite->shop->shop_name }}">
+                    <!-- 本番環境の場合
+                    <img src="{{ Storage::url($favorite->shop->images->first()->image_url) }}" alt="{{ $favorite->shop->shop_name }}"> -->
                     @endif
 
                 </div>

@@ -8,6 +8,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Image;
 use App\Models\Reservation;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,11 @@ class ManagementController extends Controller
         // 画像がアップロードされているかを確認
         if ($request->hasFile('image_url')) {
             $file = $request->file('image_url');
+            //本番環境で、S3に保存するコード（ローカルではコメントアウトにしておく）
+            //$filename = Storage::disk('s3')->put('shop_images', $file);
+            //$data['image_url'] = Storage::disk('s3')->url($filename);
+
+            //ローカル環境の場合（本番環境ではコメントアウトにする）
             $filename = $file->store('shop_images', 'public');
             $data['image_url'] = $filename;
         }
