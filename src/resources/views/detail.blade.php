@@ -11,6 +11,9 @@
     <div class="shop__heading">
         <a class="return" href="/">&lsaquo;</a>
         <h2 class="shop-name">{{ $shop->shop_name }}</h2>
+        @auth
+        <a class="shop__heading-takeout" href="{{ route('stripe', $shop) }}">TAKE OUT</a>
+        @endauth
     </div>
     <div class="shop__img">
         @if ($shop->images->isNotEmpty())

@@ -14,7 +14,7 @@
 #### http://localhost
 
 ###  本番環境
-#### http://IPアドレス
+#### http://13.231.247.232/
 ###### ※テストテスト
 
 ## **他のリポジトリ**
@@ -96,23 +96,28 @@
 - composer install
 - .env.exampleファイルから.envを作成し、環境変数を変更
 - php artisan key:generate
+- php artisan storage:link (開発環境でのシンボリックリンク作成コマンド)
+- php artisan  schedule:work & (開発環境でのタスクスケジュール実行コマンド)
 
+#### パッケージのインストール
 - composer require laravel/fortify
 - php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-
 - composer require laravel-lang/lang:~7.0 --dev
 - cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
-
 - composer require "ext-gd:*" --ignore-platform-reqs
-- composer require simplesoftwareio/simple-qrcode --ignore-platform-req=ext-gd
+- composer require simplesoftwareio/simple-qrcode
+- composer require laravel/cashier
 
+#### データ生成
+###### migrate実行コマンド
 - php artisan migrate
-#### seederファイル実行コマンド
+###### seederファイル実行コマンド
 - php artisan db:seed --class=GenresTableSeeder
 - php artisan db:seed --class=AreasTableSeeder
 - php artisan db:seed --class=ShopsTableSeeder
 - php artisan db:seed --class=ImagesTableSeeder
 - php artisan db:seed --class=RolesTableSeeder
+- php artisan db:seed --class=MenusTableSeeder
 - php artisan db:seed --class=UsersTableSeeder
 
 ## **環境変数**
@@ -127,6 +132,7 @@
 - MAIL_FROM_ADDRESS=test@example.co.jp
 
 ### 本番環境(AWS EC2,RDSインスタンスにて構築)
+###### RDS
 - DB_CONNECTION=mysql
 - DB_HOST=mysql
 - DB_PORT=3306
@@ -134,8 +140,17 @@
 - DB_USERNAME=RDSのユーザー名
 - DB_PASSWORD=RDSのパスワード
 
+###### S3
 - FILESYSTEM_DRIVER=s3
 
+- AWS_ACCESS_KEY_ID=SESのSMTP認証情報から作成したIAMで作成したアクセスキー
+- AWS_SECRET_ACCESS_KEY=SESのSMTP認証情報から作成したIAMで作成したシークレットアクセスキー
+- AWS_DEFAULT_REGION=ap-northeast-1
+- AWS_BUCKET=//S3のバケット名
+- AWS_USE_PATH_STYLE_ENDPOINT=false
+
+###### SES
+- FILESYSTEM_DRIVER=s3
 - MAIL_MAILER=ses
 - MAIL_HOST=email-smtp.ap-northeast-1.amazonaws.com
 - MAIL_PORT=587
@@ -144,12 +159,6 @@
 - MAIL_ENCRYPTION=tls
 - MAIL_FROM_ADDRESS=SESで認証済みメールアドレス
 - MAIL_FROM_NAME="${APP_NAME}"
-
-- AWS_ACCESS_KEY_ID=SESのSMTP認証情報から作成したIAMで作成したアクセスキー
-- AWS_SECRET_ACCESS_KEY=SESのSMTP認証情報から作成したIAMで作成したシークレットアクセスキー
-- AWS_DEFAULT_REGION=ap-northeast-1
-- AWS_BUCKET=//S3のバケット名
-- AWS_USE_PATH_STYLE_ENDPOINT=false
 
 ## **テーブル設計**
 ![](./table.drawio.svg)
@@ -176,5 +185,5 @@
 - SESにて実装。「ドメイン取得はなし」案件の為、送信元は自身のメールアドレスにて実装。その為DKIM等の処理が出来ず、送信された確認メールが迷惑メールBOXに入っている可能性あり。gmailドメインで実装可能。キャリアメールでは送信出来ない可能性あり。
 
 ### スプレッドシート
-- https://docs.google.com/spreadsheets/d/1vAhH-4A8FhBXRyyACtWOd465NaMvdYcw5LArtchS9us/edit#gid=1270192593
+- https://docs.google.com/spreadsheets/d/1vAhH-4A8FhBXRyyACtWOd465NaMvdYcw5LArtchS9us/edit#gid=265853827
 

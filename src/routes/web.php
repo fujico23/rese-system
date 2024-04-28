@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminMailController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-//Fortifyの認証機能をオーバーライドして認証
+//(FormRequest使用の為)Fortifyの認証機能をオーバーライド
 $limiter = '15,60';
 Route::post('/login', [LoginController::class, 'store'])
         ->middleware(([
@@ -44,22 +44,29 @@ Route::middleware('role')->group(function () {
     Route::get('detail/{shop}/review/index', [ReviewController::class, 'index'])->name('shop.review.index');
     //会員登録かつメール認証後にお気に入り機能・マイページ閲覧・予約機能可能
     Route::middleware('auth', 'verified')->group(function () {
+        //お気に入り機能(indexページ)
         Route::post('/favorites/add', [FavoriteController::class, 'store'])->name('favorite.add');
         Route::delete('/favorites/delete', [FavoriteController::class, 'destroy'])->name('favorite.delete');
-
+        //マイページ(閲覧・お気に入り削除)
         Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
         Route::delete('mypage/favorite/delete', [UserController::class, 'destroy'])->name('mypage.favorite.delete');
 
+        //予約機能(detailページ・mypage)
         Route::post('/detail/{shop}/reservation', [ReservationController::class, 'store']);
         Route::get('/done', [ReservationController::class, 'done']);
         Route::delete('/mypage/reservation/{id}', [ReservationController::class, 'destroy'])->name('mypage.reservation.delete');
         Route::patch('/mypage/reservation/{id}', [ReservationController::class, 'update'])->name('mypage.reservation.update');
 
+        //決済機能
+        Route::get('/detail/{shop}/stripe', [StripeController::class, 'index'])->name('stripe');
+        Route::post('change', [StripeController::class, 'charge'])->name('stripe.charge');
+
+        //レビュー機能
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
 
-        //role_id 1 もしくは　2のみ店舗管理ページに遷移出来る
+        //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {
             Route::get('/shop/management', [ManagementController::class, 'index'])->name('management');
             Route::patch('/management/edit/{shop}', [ManagementController::class, 'update'])->name('management.edit');
@@ -87,7 +94,7 @@ Route::middleware('role')->group(function () {
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
-    //role_id 1のみが管理画面遷移出来る
+    //管理画面機能（role_id 1のみ遷移）
     Route::middleware(['admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'admin']);
         Route::get('/admin/users/{user}', [AdminController::class, 'show'])->name('users.show');
