@@ -2,20 +2,29 @@
 
 @section('css')
 <script src="https://js.stripe.com/v3/"></script>
+<link rel="stylesheet" href="{{ asset('css/stripe.css')}}">
 @endsection
 
 @section('content')
+<h2 class="stripe__header">TAKE OUT MENU</h2>
 <form id="productForm">
-    @foreach ($menus as $menu)
-    <div class="product">
-        <img src="" alt="">
-        <h2>{{ $menu->menu_name }}</h2>
-        <p>{{ $menu->menu_description }}</p>
-        <p>{{ number_format($menu->price) }}円</p>
-        <input type="checkbox" name="products" value="{{ $menu->price }}" data-name="{{ $menu->menu_name }}" data-id="{{ $menu->id }}">この商品を選択<br>
-    </div>
-    @endforeach
-    <button type="button" id="customButton">会計</button>
+    <ol class="stripe__ol">
+        @foreach ($menus as $menu)
+        <li class="stripe__ol-list">
+            <div class="stripe__ol-list__product">
+                <div class="stripe__ol-list__product-top">
+                    <div class="stripe__ol-list__product-top__menu">
+                        <input type="checkbox" name="products" value="{{ $menu->price }}" data-name="{{ $menu->menu_name }}" data-id="{{ $menu->id }}"><br>
+                        <h3 class="stipe__ol-list__product__top__menu--name">{{ $menu->menu_name }}</h3>
+                    </div>
+                    <p class="stripe__ol-list__product__top--price">{{ number_format(round($menu->price)) }}円</p>
+                </div>
+                <p class="stipe__ol-list__product__menu_description">{{ $menu->menu_description }}</p>
+            </div>
+        </li>
+        @endforeach
+    </ol>
+    <button class="stripe__btn" type="button" id="customButton">注文</button>
 </form>
 
 <script type="text/javascript">
