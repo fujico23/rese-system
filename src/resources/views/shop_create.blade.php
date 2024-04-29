@@ -18,7 +18,7 @@
                 @csrf
                 <div class="shop-create__container__table__inner">
                     <tr class="shop-create__container__table-row">
-                        <th class="shop-create__container__table-row__header">店舗名<span style="color: red;">必須</span></th>
+                        <th class="shop-create__container__table-row__header">店舗名<span>必須</span></th>
                         <td class="shop-create__container__table-row__detail">
                             <input class="shop-create__container__table-row__detail-input" type="text" name="shop_name">
                         </td>
@@ -27,7 +27,7 @@
                         @enderror
                     </tr>
                     <tr class="shop-create__container__table-row">
-                        <th class="shop-create__container__table-row__header">エリア<span style="color: red;">必須</span></th>
+                        <th class="shop-create__container__table-row__header">エリア<span>必須</span></th>
                         <td class="shop-create__container__table-row__detail">
                             <select class="shop-create__container__table-area-select" name="area_id">
                                 <option value="">選択してください</option>
@@ -42,7 +42,7 @@
                         @enderror
                     </tr>
                     <tr class="shop-create__container__table-row">
-                        <th class="shop-create__container__table-row__header">ジャンル<span style="color: red;">必須</span></th>
+                        <th class="shop-create__container__table-row__header">ジャンル<span class="required">必須</span></th>
                         <td class="shop-create__container__table-row__detail">
                             <select class="shop-create__container__table-genre-select" name="genre_id">
                                 <option value="">選択してください</option>

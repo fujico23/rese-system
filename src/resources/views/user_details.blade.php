@@ -60,7 +60,7 @@
                         </form>
                     </td>
                 </tr>
-                @if($role_id == 2)
+                @if($userRoleId == 2)
                 <tr class="user-detail__container__table-row">
                     <th class="user-detail__container__table-row__header">店舗代表付与</th>
                     <td class="user-detail__container__table-row__detail">

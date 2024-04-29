@@ -15,6 +15,12 @@ class ShopController extends Controller
 {
     public function index()
     {
+        //メール認証していないユーザーに対してモーダルウィンドウで促す為に
+        $emailVerified = true;
+        if(Auth::check() && is_null(Auth::user()->email_verified_at)) {
+            $emailVerified = false;
+        }
+
         $user = Auth::user();
         $areas = Area::all();
         $genres = Genre::all();
@@ -64,7 +70,7 @@ class ShopController extends Controller
             $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
         });
 
-        return view('index', compact('areas', 'genres', 'shops'));
+        return view('index', compact('emailVerified','areas', 'genres', 'shops'));
     }
 
     public function search(Request $request)

@@ -8,9 +8,9 @@
 @section('content')
 <section class="review-section">
     <h2 class="review-section__header">REVIEW</h2>
+    <ul class="review-section__container">
     @foreach ($reservations as $reservation)
     @if ($reservation->review)
-    <ul class="review-section__container">
         <li class="review-section__container__group">
             <div class="review-section__container__group__inner review-area">
                 <p class="name">{{ $reservation->user->name }}さん</p>
@@ -18,10 +18,10 @@
                 <p class="comment">{{ $reservation->review->comment }}</p>
                 <p class="date">{{ $reservation->review->created_at->format('Y年m月d日') }}</p>
             </div>
-            <a href="#">商品を見る</a>
+            <a href="#"></a>
         </li>
-    </ul>
-    @endif
+        @endif
     @endforeach
+    </ul>
 </section>
 @endsection

@@ -103,7 +103,6 @@ Route::middleware('role')->group(function () {
         Route::delete('/admin/users/{user}/remove', [AdminController::class, 'remove'])->name('admin.users.remove');
         Route::get('admin/shop/create', [ShopController::class, 'create'])->name('shop.create');
         Route::post('admin/shop/post', [ShopController::class, 'store'])->name('shops.store');
-        Route::delete('admin/shop/delete', [ShopController::class, 'destroy'])->name('shop.delete');
         Route::post('admin/users/{user}/mail', [AdminMailController::class, 'send'])->name('admin.users.mail');
         Route::post('admin/users/mail', [AdminMailController::class, 'sendToAllUsers'])->name('admin.all.users.mail');
     });

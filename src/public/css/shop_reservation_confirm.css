@@ -48,6 +48,14 @@
     padding: 7px;
     border-top: 1px solid #dee2e6;
 }
+
+.shop-reservation-confirm__container__table-row__detail__select {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
 .shop-reservation-confirm__container__table-row__detail__submit {
     background-color: #ff5100;
     border: none;

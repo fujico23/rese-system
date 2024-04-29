@@ -40,12 +40,12 @@
 }
 
 .shop-create__container__table-row__header span {
-    color: red;
+    color: #FFECEA;
     margin-left: 5px;
     font-size: 90%;
-    padding: 2px 4px;
-    background-color: #ffe5e5;
-    border-radius: 2px;
+    padding: 5px 8px;
+    background-color: #EA565A;
+    border-radius: 10px;
 }
 
 .shop-create__container__table-row {

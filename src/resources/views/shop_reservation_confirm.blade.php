@@ -40,7 +40,7 @@
           <td class="shop-reservation-confirm__container__table-row__detail">
             <form action="{{ route('status.update', ['reservation' => $reservation->id]) }}" method="POST">
               @csrf
-              <select name="status" id="reservation_status_{{ $reservation->id }}">
+              <select class="shop-reservation-confirm__container__table-row__detail__select" name="status" id="reservation_status_{{ $reservation->id }}">
                 <option value="{{ $reservation->status }}">{{ $reservation->status }}</option>
                 <option value="予約済み">予約済み</option>
                 <option value="キャンセル">キャンセル</option>

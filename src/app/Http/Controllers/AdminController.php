@@ -21,9 +21,9 @@ class AdminController extends Controller
     {
         $roles = Role::all();
         $shops = Shop::all();
-        $role_id = $user->role_id;
+        $userRoleId = $user->role_id;
         $shopUsers = ShopUser::where('user_id', $user->id)->get();
-        return view('user_details', compact('shopUsers', 'user', 'roles', 'shops', 'role_id'));
+        return view('user_details', compact('shopUsers', 'user', 'roles', 'shops', 'userRoleId'));
     }
 
     public function update(Request $request, User $user)

@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'shop.management' => \App\Http\Middleware\ShopManagementMiddleware::class,
+        'verified' => \App\Http\Middleware\RedirectEmailNotVerified::class,
     ];
 }

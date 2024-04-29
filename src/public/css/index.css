@@ -39,18 +39,6 @@
   align-items: center;
 }
 
-/*.card .btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-decoration: none;
-}*/
-
 .card__footer-btn {
   padding: 10px 20px;
   background-color: #007bff;
@@ -83,6 +71,74 @@
 .heart-grey {
   color: grey;
 }
+
+/* モーダルのコンテンツ部分のスタイル */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#emailVerifyModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 80px;
+  right: 10px;
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  overflow: auto;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: #fefefe;
+  animation: slideDown 0.5s ease-out; /* アニメーション名、期間、イージング関数 */
+}
+
+.mail-verify__modal__content {
+  padding: 10px;
+  text-align: center;
+}
+
+.modal__content__text {
+  font-size: 12px;
+}
+
+.modal__content__link {
+  font-size: 13px;
+  background-color: #E8AA27;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 0px 3px;
+  text-decoration: none;
+}
+
+.modal__content__link:hover {
+  background-color: #816018;
+}
+
+.modal__content__close-button {
+  color: #aaa;
+  float: right;
+  top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.modal__content__close-button:hover,
+.modal__content__close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 375px) and (max-width: 767px) {
 /* スマートフォン用のメディアクエリ */
 .header {
