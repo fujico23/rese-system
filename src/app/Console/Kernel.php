@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Models\Reservation;
 use App\Mail\ReservationReminder;
+use App\Mail\ReviewReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
@@ -19,13 +20,26 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        //予約当日のリマインダーメール
         $schedule->call(function () {
             Log::info('Reservation reminder sent.');
-            $todayReservations = Reservation::whereDate('reservation_date', now())->get();
+            $todayReservations = Reservation::whereDate('reservation_date', now())
+                ->get();
             foreach ($todayReservations as $reservation) {
                 Mail::to($reservation->user->email)->send(new ReservationReminder($reservation));
             }
-        })->dailyAt('13:01');
+        })->dailyAt('09:30');
+
+        //レビューリマインダー
+        $schedule->call(function () {
+            Log::info('Review reminder sent');
+            $yesterdayReservations = Reservation::whereDate('reservation_date', now()->subDay())
+                ->where('status', '予約済み')
+                ->get();
+            foreach ($yesterdayReservations as $reservation) {
+                Mail::to($reservation->user->email)->send(new ReviewReminder($reservation));
+            }
+        })->dailyAt('10:00');
     }
 
     /**
@@ -35,7 +49,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
