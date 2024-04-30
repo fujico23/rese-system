@@ -18,7 +18,8 @@
             <div class="header__heading">
                 <div class="header__heading__left">
                 <div class="hamburger-menu" onclick="toggleMenu()">
-                        <i class="fa-solid fa-bars fa-lg" style="color: #0d09fb;"></i>
+                <img  src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32">
+                        <!-- <i class="fa-solid fa-bars fa-lg" style="color: gray;"></i> -->
                     </div>
                     @if (Auth::check())
                       @if($role_id == 3)
@@ -31,7 +32,7 @@
                     @else
                       @include('menu.menu4')
                     @endif
-                    <div class="header__heading__left-logo1"></div>
+                    <!-- <div class="header__heading__left-logo1"><img  src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32"></div> -->
                     <h1 class="header__heading__left-logo2">Rese</h1>
 
                 </div>

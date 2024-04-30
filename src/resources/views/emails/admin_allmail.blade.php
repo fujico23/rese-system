@@ -21,9 +21,6 @@
         <p>休止終了後には、より安定したシステム環境を提供できるよう努めてまいります。</p>
         <p>ご理解とご協力を賜りますよう、よろしくお願い申し上げます。</p>
     </div>
-    <div class="footer">
-        <p>お問い合わせは<a href="mailto:support@example.com">support@example.com</a>まで</p>
-    </div>
 </body>
 
 </html>

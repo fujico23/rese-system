@@ -61,8 +61,8 @@
                         <th class="reservation__container__table__row__header">Number</th>
                         <td class="reservation__container__table__row__description">
                             <select disabled id="mySelectNumber{{ $reservation->id }}" name="number_of_guests" class="editable select-field">
-                                <option value="{{ $reservation->number_of_guests }}">{{ $reservation->number_of_guests }}</option>
-                                @for ($count = 1; $count <= 20; $count++) <option value="{{ $count }}">{{ $count }}</option>
+                                <option value="{{ $reservation->number_of_guests }}">{{ $reservation->number_of_guests }}人</option>
+                                @for ($count = 1; $count <= 20; $count++) <option value="{{ $count }}">{{ $count }}人</option>
                                     @endfor
                             </select>
                         </td>
