@@ -1,19 +1,48 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f5f5f5;
-    padding: 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 .coupon {
-    border: 2px dashed #007BFF;
+    background-color: #F4EADE;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-top: 30px #2988BC solid;
+    border-bottom: 30px #2988BC solid;
+    padding: 30px;
+    text-align: center;
     max-width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
+    width: 100%;
 }
-h2 {
-    color: #007BFF;
+.coupon__logo {
+    width: 50px;
+    font-size: 16px;
+    background-color: #2F496E;
+    color: #fff;
+    padding: 5px;
+}
+.coupon__header {
+    color: #2988BC;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-weight: bold;
 }
 p {
     font-size: 18px;
+    line-height: 1.5;
+    color: #2F496E;
+}
+.discount {
+    font-size: 36px;
+    color: #ED8C72;
+    margin-bottom: 20px;
+}
+.expiration {
+    font-style: italic;
+    color: #888;
 }

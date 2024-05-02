@@ -11,17 +11,12 @@
 </head>
 
 <body>
-    <div class="coupon">
-        <div class="coupon__inner">
-        <h2>特別クーポン</h2>
-
-            </div>
-            <div class="coupon__inner__description">
-            <p>このクーポンをご提示いただくと、<strong>20% OFF</strong>になります！</p>
-    <p>有効期限:2024年12月31日</p>
-            </div>
-        </div>
-    </div>
+<div class="coupon">
+    <h1 class="coupon__logo">Rese</h1>
+    <h2 class="coupon__header">特別クーポン</h2>
+    <p>このクーポンをご提示で<strong class="discount">10% OFF</strong></p>
+    <p class="expiration">有効期限:2024年12月31日</p>
+</div>
 </body>
 
 </html>
