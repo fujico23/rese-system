@@ -14,6 +14,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StripeController;
+use App\Mail\AdminMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::middleware('role')->group(function () {
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
 
+        //クーポン閲覧機能
+        Route::get('/coupon', function () { return view('coupon');});
+
         //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {
             Route::get('/shop/management', [ManagementController::class, 'index'])->name('management');
@@ -103,6 +107,7 @@ Route::middleware('role')->group(function () {
         Route::delete('/admin/users/{user}/remove', [AdminController::class, 'remove'])->name('admin.users.remove');
         Route::get('admin/shop/create', [ShopController::class, 'create'])->name('shop.create');
         Route::post('admin/shop/post', [ShopController::class, 'store'])->name('shops.store');
+        
         Route::post('admin/users/{user}/mail', [AdminMailController::class, 'send'])->name('admin.users.mail');
         Route::post('admin/users/mail', [AdminMailController::class, 'sendToAllUsers'])->name('admin.all.users.mail');
     });
