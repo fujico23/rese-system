@@ -36,6 +36,7 @@
     border-radius: 2px;
     padding: 5px 7px;
     margin-bottom: 10px;
+    margin-top: 10px;
     font-weight: bold;
     font-size: 12px;
 }
@@ -94,8 +95,22 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .admin__container {
-        width: 95%;
-        padding: 5px;
+        width: 95%; /* コンテナの幅を画面のほぼ全体に */
+        padding: 10px; /* パディングを少し減らす */
     }
 
+    .admin__container__send-mail-button {
+        font-size: 10px; /* ボタンのフォントサイズを少し小さく */
+        padding: 4px 6px; /* パディングを調整 */
+    }
+
+    .admin__container__table-row__header,
+    .admin__container__table-row__detail {
+        padding: 8px; /* テーブル内のパディングを調整 */
+    }
+
+    .admin__header {
+        font-size: 20px; /* ヘッダーのフォントサイズを小さく */
+        padding: 15px; /* ヘッダーのパディングを調整 */
+    }
 }

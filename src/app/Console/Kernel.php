@@ -18,29 +18,21 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        //予約当日のリマインダーメール
+    protected function schedule(Schedule $schedule) {
         $schedule->call(function () {
-            Log::info('Reservation reminder sent.');
-            $todayReservations = Reservation::whereDate('reservation_date', now())
-                ->get();
-            foreach ($todayReservations as $reservation) {
-                Mail::to($reservation->user->email)->send(new ReservationReminder($reservation));
-            }
-        })->dailyAt('09:30');
-
-        //レビューリマインダー
+        Log::info('Reservation reminder sent.');
+        $todayReservations = Reservation::whereDate('reservation_date', now())->get();
+        foreach ($todayReservations as $reservation) {
+        Mail::to($reservation->user->email)->send(new ReservationReminder($reservation));
+        }
+        })->dailyAt('11:59');
         $schedule->call(function () {
-            Log::info('Review reminder sent');
-            $yesterdayReservations = Reservation::whereDate('reservation_date', now()->subDay())
-                ->where('status', '予約済み')
-                ->get();
-            foreach ($yesterdayReservations as $reservation) {
-                Mail::to($reservation->user->email)->send(new ReviewReminder($reservation));
-            }
+        Log::info('Review reminder sent');
+        $yesterdayReservations = Reservation::whereDate('reservation_date', now()->subDay())->where('status', '予約済み')->get();
+        foreach ($yesterdayReservations as $reservation) {
+        Mail::to($reservation->user->email)->send(new ReviewReminder($reservation));}
         })->dailyAt('10:00');
-    }
+        }
 
     /**
      * Register the commands for the application.

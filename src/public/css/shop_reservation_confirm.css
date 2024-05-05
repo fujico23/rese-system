@@ -72,12 +72,48 @@
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+    .shop-reservation-confirm__container {
+        padding: 10px; /* パディングを少し小さく */
+    }
+
     .shop-reservation-confirm__container__table {
-        width: 100%;
+        font-size: 12px; /* フォントサイズを小さく */
     }
 
     .shop-reservation-confirm__container__table-row__header,
     .shop-reservation-confirm__container__table-row__detail {
-        padding: 5px;
+        padding: 8px 5px; /* セルのパディングを調整 */
+    }
+
+    .shop-reservation-confirm__container__table-row__detail__select,
+    .shop-reservation-confirm__container__table-row__detail__submit {
+        font-size: 10px; /* ドロップダウンとボタンのフォントサイズを小さく */
+        padding: 5px; /* パディングを小さく */
+    }
+
+    .shop-reservation-confirm__container__table-row__detail__submit {
+        padding: 4px 6px; /* ボタンのパディングをさらに調整 */
+    }
+}
+
+@media (max-width: 428px) {
+    .shop-reservation-confirm__container {
+        padding: 0px; /* パディングを少し小さく */
+    }
+    .shop-reservation-confirm__header {
+        font-size: 16px; /* より小さい画面でヘッダーのフォントサイズを小さく */
+    }
+
+    .shop-reservation-confirm__container__table-row__header {
+        padding: 5px 3px; /* より小さい画面でヘッダーのパディングを調整 */
+    }
+
+    .shop-reservation-confirm__container__table-row__detail {
+        word-wrap: break-word; /* 単語の折り返しを許可 */
+    }
+
+    .shop-reservation-confirm__container__table-row__detail__select,
+    .shop-reservation-confirm__container__table-row__detail__submit {
+        width: auto; /* セレクトボックスとボタンの幅を自動調整 */
     }
 }

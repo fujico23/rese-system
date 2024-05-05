@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-<div class="user-details">
-    <h2 class="user-details__header">ユーザー詳細</h2>
+
+    <h2 class="user-detail__header">ユーザー詳細</h2>
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -16,9 +16,9 @@
         {{ session('error') }}
     </div>
     @endif
-    <div class="user-details__container">
-        <table class="user-details__container__table">
-            <div class="user-details__container__table__inner">
+    <div class="user-detail__container">
+        <table class="user-detail__container__table">
+            <div class="user-detail__container__table__inner">
                 <tr class="user-detail__container__table-row">
                     <th class="user-detail__container__table-row__header">ID</th>
                     <td class="user-detail__container__table-row__detail">{{ $user->id }}</td>
@@ -32,7 +32,7 @@
                     <td class="user-detail__container__table-row__detail">{{ $user->email }}</td>
                 </tr>
                 <tr class="user-detail__container__table-row">
-                    <th class="user-detail__container__table-row__header">会員登録日時</th>
+                    <th class="user-detail__container__table-row__header">会員登録日</th>
                     <td class="user-detail__container__table-row__detail">{{ $user->created_at }}</td>
                 </tr>
                 <tr class="user-detail__container__table-row">
@@ -62,7 +62,7 @@
                 </tr>
                 @if($userRoleId == 2)
                 <tr class="user-detail__container__table-row">
-                    <th class="user-detail__container__table-row__header">店舗代表付与</th>
+                    <th class="user-detail__container__table-row__header">代表店選択</th>
                     <td class="user-detail__container__table-row__detail">
                         <form class="user-detail__container__table-row__form-post" action="{{ route('admin.users.assign', $user) }}" method="POST" onsubmit="return confirm('店舗代表の店舗を追加しますか？');">
                             @csrf
@@ -99,13 +99,12 @@
 
                 @endif
                 <tr class="user-detail__container__table-row">
-                    <th class="user-detail__container__table-row__header">メール送信</th>
+                    <th class="user-detail__container__table-row__header">クーポン</th>
                     <td class="user-detail__container__table-row__detail">
                         <form  class="user-detail__container__table-row__form-submit" action="{{ route('admin.users.mail', $user)  }}" method="post">
                             @csrf
                             <input type="hidden" name="email" value="{{ $user->email }}">
-                            <label for="message">メッセージ:</label>
-                            <textarea id="message" name="message"></textarea>
+                            <input type="text" readonly value="期限:2024/12/31末">
                             <button class="user-detail__container__table__btn-submit" type="submit">送信</button>
                         </form>
                     </td>
@@ -113,5 +112,4 @@
             </div>
         </table>
     </div>
-</div>
 @endsection

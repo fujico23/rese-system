@@ -9,10 +9,10 @@ body {
 }
 
 /* ヘッダーのスタイル */
-.user-details__header {
+.user-detail__header {
   background-color: #007BFF;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 20px;
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
@@ -23,7 +23,7 @@ body {
 }
 
 /* コンテナスタイル */
-.user-details__container {
+.user-detail__container {
   width: 80%;
   margin: 0 auto;
   background: #ffffff;
@@ -32,9 +32,13 @@ body {
 }
 
 /* テーブルのスタイル */
-.user-details__container__table {
+.user-detail__container__table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.user-detail__container__table__inner {
+  width: 100%;
 }
 
 .user-detail__container__table-row__header,
@@ -132,37 +136,56 @@ select, input[type="text"]{
   align-items: center;
 }
 
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
-  .user-details__container,
-  .user-details__container__table {
+  .user-detail__container {
     width: 95%;
     padding: 5px;
   }
+  .user-detail__container__table {
+    width: 100%;
+    padding: 0px 5px;
 
-  .user-details__container__table th,
-  .user-details__container__table td {
+  }
+
+  .user-detail__container__table__inner,
+  .user-detail__container__table-row {
+    width: 100%;
+    height: auto;
+  }
+
+
+  .user-detail__container__table th,
+  .user-detail__container__table td {
     padding: 8px 5px;
     margin: 0 auto;
   }
+
 }
 
 /* 480px以下の画面幅に対応 */
 @media (max-width: 480px) {
-  .user-details__container,
-  .user-details__container__table {
-    width: 90%;
-
-  }
-
+  .user-detail__container,
+  .user-detail__container__table,
+  .user-detail__container__table__inner,
   .user-detail__container__table-row {
-    width: 95%;
+    width: 100%;
   }
 
   select,
   input[type="text"],
   button {
-    margin: 10px 0;
+    margin: 5px 0;
   }
-
+  .user-detail__container__table-row__header,
+  .user-detail__container__table-row__detail {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .user-detail__container__table-row__header {
+    background-color: #b9b9b9;
+    color: #fff;
+  }
 }
