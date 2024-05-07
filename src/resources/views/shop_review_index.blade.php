@@ -8,6 +8,7 @@
 @section('content')
 <section class="review-section">
     <h2 class="review-section__header">REVIEW</h2>
+    <a class="review-section--return" href="/detail/{{ $shop->id }}">return</a>
     <ul class="review-section__container">
     @foreach ($reservations as $reservation)
     @if ($reservation->review)

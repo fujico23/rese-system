@@ -42,7 +42,11 @@ class ReviewController extends Controller
 
     public function index(Shop $shop)
     {
-        $reservations = $shop->reservations()->with('review', 'user')->get();
-        return view('shop_review_index', compact('reservations'));
+        $reservations = $shop->reservations()
+        ->with('review', 'user',)
+        ->where('status', '口コミ済み')
+        ->get();
+        //dd($reservations);
+        return view('shop_review_index', compact('reservations', 'shop'));
     }
 }
