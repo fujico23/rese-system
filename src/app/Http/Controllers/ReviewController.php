@@ -46,7 +46,6 @@ class ReviewController extends Controller
         ->with('review', 'user',)
         ->where('status', '口コミ済み')
         ->get();
-        //dd($reservations);
         return view('shop_review_index', compact('reservations', 'shop'));
     }
 }

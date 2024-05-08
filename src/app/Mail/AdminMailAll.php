@@ -11,17 +11,18 @@ class AdminMailAll extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $title;
+    public $body;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($title, $body)
     {
-        $this->details = $details;
-        //
+        $this->title = $title;
+        $this->body = $body;
     }
 
     /**
@@ -31,7 +32,7 @@ class AdminMailAll extends Mailable
      */
     public function build()
     {
-        return $this->subject('【Rese】夜間アプリケーションシステムの休止について')
-        ->view('emails.admin_allmail');
+        return $this->subject('【Rese】' . $this->title)
+            ->view('emails.send_all_mail');
     }
 }

@@ -22,20 +22,19 @@ class AdminMailController extends Controller
         return back()->with('success', 'メールが送信されました！');
     }
 
-    public function sendToAllUsers()
+    public function createAllMail()
     {
-        //全ユーザーを取得
+        return view('emails.create_all_mail');
+    }
+
+    public function sendAllMail(Request $request)
+    {
+        $title = $request->input('title');
+        $body = $request->input('body');
         $users = User::all();
 
-        //各ユーザーに対してメールを送信
-        foreach ($users as $user)
-        {
-            $details = [
-                'title' => 'Reseより大切なお知らせ',
-                'body' => '夜間アプリケーションシステムの休止について'
-            ];
-
-            Mail::to($user->email)->send(new AdminMailAll($details));
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new AdminMailAll($title, $body));
         }
 
         return back()->with('success', '全ユーザーにメールが送信されました！');

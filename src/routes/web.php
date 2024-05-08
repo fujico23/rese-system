@@ -108,6 +108,7 @@ Route::middleware('role')->group(function () {
         Route::get('admin/shop/create', [ShopController::class, 'create'])->name('shop.create');
         Route::post('admin/shop/post', [ShopController::class, 'store'])->name('shops.store');
         Route::post('admin/users/{user}/mail', [AdminMailController::class, 'send'])->name('admin.users.mail');
-        Route::post('admin/users/mail', [AdminMailController::class, 'sendToAllUsers'])->name('admin.all.users.mail');
+        Route::get('admin/all/mail', [AdminMailController::class, 'createAllMail'])->name('create.all.mail');
+        Route::post('admin/all/mail', [AdminMailController::class, 'sendAllMail'])->name('admin.all.users.mail');
     });
 });
