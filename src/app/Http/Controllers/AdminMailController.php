@@ -10,14 +10,17 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminMailController extends Controller
 {
-    public function send(Request $request, User $user)
+    public function createUserMail(User $user)
     {
-        $details = [
-            'title' => '常連様限定！',
-            'body' => 'リピーター向け特別割引!!'
-        ];
+        return view('emails.create_user_mail', compact('user'));
+    }
 
-        Mail::to($request->email)->send(new AdminMail($details));
+    public function sendUserMail(Request $request, User $user)
+    {
+        $title = $request->input('title');
+        $body = $request->input('body');
+
+        Mail::to($user->email)->send(new AdminMail($title, $body, $user));
 
         return back()->with('success', 'メールが送信されました！');
     }

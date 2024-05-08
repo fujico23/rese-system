@@ -8,10 +8,12 @@
 @section('content')
 <section class="review-section">
     <h2 class="review-section__header">REVIEW</h2>
-    <a class="review-section--return" href="/detail/{{ $shop->id }}">return</a>
+    <div class="review-section--return">
+        <a class="review-section--return__inner" href="/detail/{{ $shop->id }}">return</a>
+    </div>
     <ul class="review-section__container">
-    @foreach ($reservations as $reservation)
-    @if ($reservation->review)
+        @foreach ($reservations as $reservation)
+        @if ($reservation->review)
         <li class="review-section__container__group">
             <div class="review-section__container__group__inner review-area">
                 <p class="name">{{ $reservation->user->name }}さん</p>
@@ -22,7 +24,7 @@
             <a href="#"></a>
         </li>
         @endif
-    @endforeach
+        @endforeach
     </ul>
 </section>
 @endsection

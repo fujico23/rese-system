@@ -11,16 +11,20 @@ class AdminMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $title;
+    public $body;
+    public $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($title, $body, $user)
     {
-        $this->details = $details;
-        //
+        $this->title = $title;
+        $this->body = $body;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +34,7 @@ class AdminMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('【Rese】常連様限定!')
-        ->view('emails.admin_mail');
+        return $this->subject('【Rese】' . $this->title)
+        ->view('emails.send_user_mail');
     }
 }

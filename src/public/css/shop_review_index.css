@@ -9,6 +9,11 @@
  }
 
 .review-section--return {
+  max-width: 1000px;
+  margin: 2rem auto;
+ }
+
+.review-section--return__inner {
   display: inline-block;
   margin-left: 20px;
   padding: 2px 5px;
@@ -18,7 +23,7 @@
   font-weight: bold;
  }
 
-.review-section--return:hover {
+.review-section--return__inner:hover {
   background-color: #ccc;
 }
 .review-section__container {

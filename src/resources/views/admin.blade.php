@@ -17,11 +17,7 @@
     </div>
     @endif
     <div class="admin__container">
-        <a class="admin__container__mail-form" href="{{ route('create.all.mail') }} ">メールフォーム</a>
-        <form method="POST" action="{{ route('admin.all.users.mail') }}">
-            @csrf <!-- CSRF トークン -->
-            <button type="submit" class="admin__container__send-mail-button">一斉メール送信</button>
-        </form>
+        <a class="admin__container__send-mail-button" href="{{ route('create.all.mail') }} ">メールフォーム</a>
         <table class="admin__container__table">
             <div class="admin__table__inner">
                 <tr class="admin__container__table-row">
