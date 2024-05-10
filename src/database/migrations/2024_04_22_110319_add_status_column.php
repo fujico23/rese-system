@@ -14,7 +14,7 @@ class AddStatusColumn extends Migration
     public function up()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->string('status')->nullable()->default('予約済み');
+            $table->string('status')->default('予約済み');
         });
     }
 

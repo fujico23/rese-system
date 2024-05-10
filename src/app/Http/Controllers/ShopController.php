@@ -6,6 +6,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Shop;
 use App\Models\Reservation;
+use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShopRequest;
@@ -98,15 +99,13 @@ class ShopController extends Controller
         $user = Auth::user();
         $reservations = [];
         $nowDate = Carbon::now()->toDateString();
-        $twoHoursLater = Carbon::now()->addHours(2)->toTimeString(); //"23:47:01"
-
+        $twoHoursLater = Carbon::now()->addHours(2)->toTimeString();
         // ユーザーがログインしている場合の処理
         if ($user) {
             $reservations = Reservation::where('user_id', $user->id)
                 ->where('shop_id', $shop->id)
                 ->whereDate('reservation_date', '<', $nowDate)
                 ->where('status', '予約済み')
-                //->whereTime('reservation_time', '>', $twoHoursLater)
                 ->first();
         } else {
             // ユーザーがログインしていない場合の処理
@@ -124,7 +123,10 @@ class ShopController extends Controller
             $reservationTimes[] = $time->format('H:i'); // 時間を配列に追加
         }
 
-        return view('detail', compact('shop', 'reservations', 'reservationTimes'));
+        $courses = Course::where('shop_id', $shop->id)
+        ->get();
+
+        return view('detail', compact('shop', 'reservations', 'reservationTimes', 'courses'));
     }
 
     public function create()

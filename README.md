@@ -125,6 +125,7 @@
 - php artisan db:seed --class=ImagesTableSeeder
 - php artisan db:seed --class=RolesTableSeeder
 - php artisan db:seed --class=MenusTableSeeder
+- php artisan db:seed --class=CoursesTableSeeder
 - php artisan db:seed --class=UsersTableSeeder
 
 ## **環境変数**

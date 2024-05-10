@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css')}}">
+<script src="https://js.stripe.com/v3/"></script>
 @endsection
 
 @section('content')
@@ -52,7 +53,7 @@
 <!-- 予約情報-->
 <div class="reservation-container">
     <div class="reservation-container__inner">
-        <form action="/detail/{shop}/reservation" method="post">
+        <form class="reservation-form" action="/detail/{shop}/reservation" method="post">
             @csrf
             <div class="reservation-form__inner">
                 <h2 class="reservation__heading">予約</h2>
@@ -78,7 +79,7 @@
                     @enderror
                 </p>
                 <div class="numer-of-guests form__tag">
-                    <select name="number_of_guests">
+                    <select name="number_of_guests" id="number_of_guests"><!-- idを追加 -->
                         <option value="">予約人数を選択してください</option>
                         @for ($count = 1; $count <= 20; $count++) <option value="{{ $count }}">{{ $count }}人</option>
                             @endfor
@@ -86,6 +87,19 @@
                 </div>
                 <p class="reservation-error">
                     @error('number_of_guests')
+                    {{ $message }}
+                    @enderror
+                </p>
+                <div class="course form__tag">
+                    <select name="course_id">
+                        <option value="">予約コースを選択してください</option>
+                        @foreach($courses as $course)
+                        <option value="{{ $course->id }}" data-price="{{ $course->price }}">{{ $course->course_name }} - ¥{{ number_format($course->price) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <p class="reservation-error">
+                    @error('course_id')
                     {{ $message }}
                     @enderror
                 </p>
@@ -108,59 +122,115 @@
                         <td>Number</td>
                         <td id="guest_count">選択して下さい</td>
                     </tr>
+                    <tr class="table__row">
+                        <td>合計金額</td>
+                        <td id="total_price">0円</td>
+                    </tr>
+                    <tr class="table__row">
+                        <td>事前決済</td>
+                        <td id="total_price">
+                            <form id="productForm">
+                                <button class="stripe__btn" type="submit" id="customButton">注文</button>
+                            </form>
+                        </td>
+                    </tr>
                 </table>
             </div>
+
             <div class="reservation__btn">
-                <button class="btn" type="submit" name="reservation_button">予約する</button>
+                <button class="btn" type="submit" id="submit-button" name="reservation_button">予約する</button>
             </div>
         </form>
     </div>
 </div>
 
-
+<script type="text/javascript">
+    var stripeKey = "{{ env('STRIPE_KEY') }}";
+</script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
-    // 今日の日付を取得
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
+    var handler = StripeCheckout.configure({
+        key: stripeKey,
+        locale: 'auto',
+        token: function(token) {
+            // トークン生成後の処理。例えば、サーバーへトークンを送信。
+        }
+    });
+    document.getElementById('customButton').addEventListener('click', function(e) {
+        var totalAmount = 0;
+        var productDescriptions = [];
+        var selectedProducts = [];
 
-    // 2ヶ月後の日付を計算
-    var maxDate = new Date();
-    maxDate.setMonth(maxDate.getMonth() + 2);
-    var max_dd = String(maxDate.getDate()).padStart(2, '0');
-    var max_mm = String(maxDate.getMonth() + 1).padStart(2, '0');
-    var max_yyyy = maxDate.getFullYear();
-    var twoMonthsLater = max_yyyy + '-' + max_mm + '-' + max_dd;
+        document.querySelectorAll('#productForm input[name="products"]:checked').forEach(function(item) {
+            totalAmount += parseInt(item.value, 10); // 合計金額を計算
+            productDescriptions.push(item.dataset.name); // 商品名を集める
+            selectedProducts.push({
+                id: item.dataset.id,
+                name: item.dataset.name
+            }); // 選択された商品の詳細情報を集める
+        });
 
-    // 最小の日付を設定
-    document.getElementById("reservation_date").setAttribute("min", today);
+        handler.open({
+            name: 'お支払い画面',
+            description: productDescriptions.join(", "),
+            amount: totalAmount,
+            currency: 'JPY'
+        });
+        e.preventDefault();
+    });
 
-    // 最大の日付を設定
-    document.getElementById("reservation_date").setAttribute("max", twoMonthsLater);
+    window.addEventListener('popstate', function() {
+        handler.close();
+    });
+</script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-        var selectReservationTimeElement = document.querySelector('select[name="reservation_time"]');
-        var reservationTimeElement = document.getElementById('reservation_time');
-
-        var selectNumberOfGuestsElement = document.querySelector('select[name="number_of_guests"]');
-        var guestCountElement = document.getElementById('guest_count');
-
         var reservationDateElement = document.getElementById('reservation_date');
         var reservationDateDisplayElement = document.getElementById('reservation_date_display');
+        reservationDateElement.addEventListener('change', function() {
+            reservationDateDisplayElement.textContent = reservationDateElement.value;
+        });
 
+        var selectReservationTimeElement = document.querySelector('select[name="reservation_time"]');
+        var reservationTimeElement = document.getElementById('reservation_time');
         selectReservationTimeElement.addEventListener('change', function() {
             reservationTimeElement.textContent = selectReservationTimeElement.value;
         });
 
+        var selectNumberOfGuestsElement = document.querySelector('select[name="number_of_guests"]');
+        var guestCountElement = document.getElementById('guest_count');
         selectNumberOfGuestsElement.addEventListener('change', function() {
             var guestCount = selectNumberOfGuestsElement.value;
             guestCountElement.textContent = guestCount + "人";
         });
 
-        reservationDateElement.addEventListener('change', function() {
-            reservationDateDisplayElement.textContent = reservationDateElement.value;
-        });
+        var selectCourseElement = document.querySelector('select[name="course_id"]');
+        var totalPriceElement = document.getElementById('total_price');
+
+        function updateTotalPrice() {
+            var selectedCourseId = selectCourseElement.value;
+            var selectedGuestCount = parseInt(selectNumberOfGuestsElement.value);
+
+            // バリデーション: コースIDと人数が選択されているか確認
+            if (!selectedCourseId || isNaN(selectedGuestCount)) {
+                totalPriceElement.textContent = '0円';
+                return;
+            }
+
+            // 合計金額を計算（ここでは仮にコースの価格を人数で乗算する例を示します）
+            var coursePrice = parseFloat(selectCourseElement.options[selectCourseElement.selectedIndex].getAttribute('data-price'));
+            var totalPrice = coursePrice * selectedGuestCount;
+
+            // 合計金額をテーブルに反映
+            totalPriceElement.textContent = totalPrice.toLocaleString() + '円';
+        }
+
+        // 人数またはコースが変更されたら合計金額を更新
+        selectCourseElement.addEventListener('change', updateTotalPrice);
+        selectNumberOfGuestsElement.addEventListener('change', updateTotalPrice);
+
+        // 初期状態で合計金額を更新（人数が選択されるのを待つ）
+        updateTotalPrice();
     });
 </script>
 @endsection

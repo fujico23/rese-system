@@ -196,7 +196,8 @@ body {
 }
 
 
-.thanks__container-btn-link {
+.thanks__container-btn-link,
+.thanks__container-btn-link--mypage {
   display: inline-block;
   padding: 7px 15px;
   background-color: #007bff;
@@ -206,6 +207,10 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-decoration: none;
+}
+
+.thanks__container-btn--mypage {
+  margin-top: 10px;
 }
 
   /* ハンバーガーメニューのスタイル */

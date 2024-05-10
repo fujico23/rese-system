@@ -40,6 +40,11 @@ class Shop extends Model
         return $this->hasMany(Menu::class);
     }
 
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
     public function scopeGenreSearch($query, $genre_id)
     {
         if (!empty($genre_id)) {

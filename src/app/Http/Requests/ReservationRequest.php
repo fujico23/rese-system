@@ -29,9 +29,10 @@ class ReservationRequest extends FormRequest
   public function rules()
   {
     return [
-      'reservation_date' => 'required',
+      'reservation_date' => 'required|date|after_or_equal:today|before_or_equal:2 months',
       'reservation_time' => 'required',
-      'number_of_guests' => 'required'
+      'number_of_guests' => 'required',
+      'course_id' => 'required'
     ];
   }
 
@@ -39,8 +40,11 @@ class ReservationRequest extends FormRequest
   {
     return [
       'reservation_date.required' => '予約日を入力してください',
+      'reservation_date.after_or_equal' => '翌日以降の日程で予約して下さい',
+      'reservation_date.before_or_equal' => '2ヶ月以内の予約日で設定して下さい',
       'reservation_time.required' => '予約時間を入力してください',
-      'number_of_guests.required' => '予約人数を入力してください'
+      'number_of_guests.required' => '予約人数を入力してください',
+      'course_id.required' => 'コースを選択して下さい'
     ];
   }
 }

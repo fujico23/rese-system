@@ -14,7 +14,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StripeController;
-use App\Mail\AdminMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +60,8 @@ Route::middleware('role')->group(function () {
         //決済機能
         Route::get('/detail/{shop}/stripe', [StripeController::class, 'index'])->name('stripe');
         Route::post('change', [StripeController::class, 'charge'])->name('stripe.charge');
+
+        Route::post('/charge/course', [StripeController::class, 'chargeCourse'])->name('course.charge');
 
         //レビュー機能
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
