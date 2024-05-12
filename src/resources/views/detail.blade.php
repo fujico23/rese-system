@@ -126,14 +126,6 @@
                         <td>合計金額</td>
                         <td id="total_price">0円</td>
                     </tr>
-                    <tr class="table__row">
-                        <td>事前決済</td>
-                        <td id="total_price">
-                            <form id="productForm">
-                                <button class="stripe__btn" type="submit" id="customButton">注文</button>
-                            </form>
-                        </td>
-                    </tr>
                 </table>
             </div>
 
@@ -144,45 +136,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    var stripeKey = "{{ env('STRIPE_KEY') }}";
-</script>
-<script src="https://checkout.stripe.com/checkout.js"></script>
-<script>
-    var handler = StripeCheckout.configure({
-        key: stripeKey,
-        locale: 'auto',
-        token: function(token) {
-            // トークン生成後の処理。例えば、サーバーへトークンを送信。
-        }
-    });
-    document.getElementById('customButton').addEventListener('click', function(e) {
-        var totalAmount = 0;
-        var productDescriptions = [];
-        var selectedProducts = [];
 
-        document.querySelectorAll('#productForm input[name="products"]:checked').forEach(function(item) {
-            totalAmount += parseInt(item.value, 10); // 合計金額を計算
-            productDescriptions.push(item.dataset.name); // 商品名を集める
-            selectedProducts.push({
-                id: item.dataset.id,
-                name: item.dataset.name
-            }); // 選択された商品の詳細情報を集める
-        });
-
-        handler.open({
-            name: 'お支払い画面',
-            description: productDescriptions.join(", "),
-            amount: totalAmount,
-            currency: 'JPY'
-        });
-        e.preventDefault();
-    });
-
-    window.addEventListener('popstate', function() {
-        handler.close();
-    });
-</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var reservationDateElement = document.getElementById('reservation_date');

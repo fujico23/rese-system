@@ -53,7 +53,7 @@ Route::middleware('role')->group(function () {
 
         //予約機能(detailページ・mypage)
         Route::post('/detail/{shop}/reservation', [ReservationController::class, 'store']);
-        Route::get('/done', [ReservationController::class, 'done']);
+        Route::get('/done', [ReservationController::class, 'done'])->name('done');
         Route::delete('/mypage/reservation/{id}', [ReservationController::class, 'destroy'])->name('mypage.reservation.delete');
         Route::patch('/mypage/reservation/{id}', [ReservationController::class, 'update'])->name('mypage.reservation.update');
 
@@ -61,7 +61,8 @@ Route::middleware('role')->group(function () {
         Route::get('/detail/{shop}/stripe', [StripeController::class, 'index'])->name('stripe');
         Route::post('change', [StripeController::class, 'charge'])->name('stripe.charge');
 
-        Route::post('/charge/course', [StripeController::class, 'chargeCourse'])->name('course.charge');
+        Route::post('/webhook/stripe', [StripeController::class, 'handleStripeWebhook']);
+
 
         //レビュー機能
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');

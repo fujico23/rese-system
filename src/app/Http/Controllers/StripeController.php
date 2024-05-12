@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Menu;
+use App\Models\Reservation;
 use Stripe\Stripe;
 use Stripe\Charge;
 
@@ -39,28 +40,23 @@ class StripeController extends Controller
         }
     }
 
-    public function chargeCourse(Request $request)
+
+    public function handleStripeWebhook(Request $request)
     {
-        try {
-            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-    
-            $token = $request->input('token');
-            $amount = $request->input('amount');
-    
-            // Stripeのチャージを作成して実行
-            $charge = Charge::create([
-                'amount' => $amount,
-                'currency' => 'JPY',
-                'source' => $token,
-                'description' => '予約料金の決済'
-            ]);
-    
-            // 決済が成功した場合の処理
-            // 予約のpayment_statusを更新するなどの処理を行う
-    
-            return redirect()->route('payment.success')->with('success', 'Payment was successful.');
-        } catch (\Exception $e) {
-            return back()->withErrors('Error! ' . $e->getMessage());
+        // Stripeからのイベントを処理するロジックを実装する
+        $payload = $request->all();
+
+        // Stripeの支払い成功イベントの場合
+        if ($payload['type'] === 'payment_intent.succeeded') {
+            $paymentIntent = $payload['data']['object'];
+            $reservationId = $paymentIntent['metadata']['reservation_id'];
+
+            // 予約情報の更新
+            $reservation = Reservation::findOrFail($reservationId);
+            $reservation->payment_status = 'paid';
+            $reservation->save();
         }
+
+        return response()->json(['status' => 'success']);
     }
 }
