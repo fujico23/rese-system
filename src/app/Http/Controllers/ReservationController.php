@@ -18,10 +18,15 @@ class ReservationController extends Controller
         $user_id = Auth::id();
         $data['user_id'] = $user_id;
 
-        Reservation::create($data);
+        $reservation = Reservation::create($data);
+        $reservationId = $reservation->id;
+
         $course = Course::findOrFail($data['course_id']);
 
+
+        //Stripeと連携させる
         Stripe::setApiKey(env('STRIPE_SECRET'));
+        //StripeCheckoutSessionを作成した時にStripe APIから返されるオブジェクトを設定
         $checkout_session = Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
@@ -34,18 +39,38 @@ class ReservationController extends Controller
                 ],
                 'quantity' => $data['number_of_guests'],
             ]],
+            'metadata' => [
+                'reservation_id' => $reservationId,
+            ],
             'mode' => 'payment',
             'success_url' => route('done', ['session_id' => '{CHECKOUT_SESSION_ID}']),
-            'cancel_url' => route('done'),
             ]);
+            //ユーザーを、Stripeが生成した支払いフォームのURLに誘導
             return redirect($checkout_session->url);
-        //return view('done', compact('shop'));
     }
 
     public function done(Request $request)
     {
-        $session_id = $request->input('session_id');
-        return view('done');
+        $sessionId = $request->input('session_id');
+    
+        // StripeのセッションIDを使って支払い情報を取得
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $session = Session::retrieve($sessionId);
+    
+        // 支払いが成功しているかを確認
+        if ($session->payment_status === 'paid') {
+            // Metadataから関連する予約IDを取得
+            $reservationId = $session->metadata['reservation_id'];
+    
+            // 対応する予約データのpayment_statusを更新
+            Reservation::where('id', $reservationId)->update(['payment_status' => 'paid']);
+            
+            // 支払いステータスを更新したらdoneページを表示
+            return view('done');
+        } else {
+            // 支払いが成功していない場合の処理（エラー表示等）
+            return redirect()->route('reservation.index')->with('error', '支払いが完了していません。');
+        }
     }
 
     public function destroy($id)

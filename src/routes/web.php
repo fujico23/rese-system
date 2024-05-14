@@ -61,8 +61,7 @@ Route::middleware('role')->group(function () {
         Route::get('/detail/{shop}/stripe', [StripeController::class, 'index'])->name('stripe');
         Route::post('change', [StripeController::class, 'charge'])->name('stripe.charge');
 
-        Route::post('/webhook/stripe', [StripeController::class, 'handleStripeWebhook']);
-
+        Route::post('/webhook/stripe', [StripeController::class, 'handleWebhook'])->name('stripe.webhook');
 
         //レビュー機能
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
