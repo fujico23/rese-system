@@ -20,15 +20,16 @@
     border-radius: 4px;
 }
 
+ /* 表が幅を超えた場合にスクロールバーを表示 */
 .shop-reservation-confirm__container {
     width: 100%;
-    overflow-x: auto; /* 表が幅を超えた場合にスクロールバーを表示 */
+    overflow-x: auto;
 }
 
 .shop-reservation-confirm__container__table {
     width: 100%;
-    border-collapse: collapse; /* ボーダーの重複を避ける */
-    margin-bottom: 20px; /* 各店舗のテーブル間の余白 */
+    border-collapse: collapse;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -64,48 +65,50 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 10px;
     cursor: pointer;
     border-radius: 2px;
-    transition: background-color 0.3s ease;
+}
+.shop-reservation-confirm__container__table-row__detail__submit:hover {
+    opacity: 0.7;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .shop-reservation-confirm__container {
-        padding: 10px; /* パディングを少し小さく */
+        padding: 10px;
     }
 
     .shop-reservation-confirm__container__table {
-        font-size: 12px; /* フォントサイズを小さく */
+        font-size: 12px;
     }
 
     .shop-reservation-confirm__container__table-row__header,
     .shop-reservation-confirm__container__table-row__detail {
-        padding: 8px 5px; /* セルのパディングを調整 */
+        padding: 8px 5px;
     }
 
     .shop-reservation-confirm__container__table-row__detail__select,
     .shop-reservation-confirm__container__table-row__detail__submit {
-        font-size: 10px; /* ドロップダウンとボタンのフォントサイズを小さく */
-        padding: 5px; /* パディングを小さく */
+        font-size: 10px;
+        padding: 5px;
     }
 
     .shop-reservation-confirm__container__table-row__detail__submit {
-        padding: 4px 6px; /* ボタンのパディングをさらに調整 */
+        padding: 4px 6px;
     }
 }
 
 @media (max-width: 428px) {
     .shop-reservation-confirm__container {
-        padding: 0px; /* パディングを少し小さく */
+        padding: 0px;
     }
     .shop-reservation-confirm__header {
-        font-size: 16px; /* より小さい画面でヘッダーのフォントサイズを小さく */
+        font-size: 16px;
     }
 
     .shop-reservation-confirm__container__table-row__header {
-        padding: 5px 3px; /* より小さい画面でヘッダーのパディングを調整 */
+        padding: 2px 3px;
     }
 
     .shop-reservation-confirm__container__table-row__detail {

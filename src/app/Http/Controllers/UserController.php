@@ -7,6 +7,8 @@ use App\Models\Favorite;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -33,6 +35,9 @@ class UserController extends Controller
         for ($time = $startTime; $time->lessThanOrEqualTo($endTime); $time->addMinutes(15)) {
             $reservationTimes[] = $time->format('H:i'); // 時間を配列に追加
         }
+
+        Log::info('Session success: ' . Session::get('success'));
+        Log::info('Session error: ' . Session::get('error'));
 
         return view('mypage', compact('role_id', 'favorites', 'userReservations', 'reservationCount','reservationTimes'));
     }

@@ -54,6 +54,7 @@ Route::middleware('role')->group(function () {
         //予約機能(detailページ・mypage)
         Route::post('/detail/{shop}/reservation', [ReservationController::class, 'store']);
         Route::get('/done', [ReservationController::class, 'done'])->name('done');
+        Route::get('/undone', [ReservationController::class, 'undone'])->name('undone');
         Route::delete('/mypage/reservation/{id}', [ReservationController::class, 'destroy'])->name('mypage.reservation.delete');
         Route::patch('/mypage/reservation/{id}', [ReservationController::class, 'update'])->name('mypage.reservation.update');
 

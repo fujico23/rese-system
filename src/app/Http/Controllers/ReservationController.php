@@ -24,7 +24,6 @@ class ReservationController extends Controller
 
         $course = Course::findOrFail($data['course_id']);
 
-
         //Stripeと連携させる
         Stripe::setApiKey(config('services.stripe.st_key'));
         //StripeCheckoutSessionを作成した時にStripe APIから返されるオブジェクトを設定
@@ -45,6 +44,7 @@ class ReservationController extends Controller
             ],
             'mode' => 'payment',
             'success_url' => route('done', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('undone', [], true),
         ]);
 
         //ユーザーを、Stripeが生成した支払いフォームのURLに誘導
@@ -54,26 +54,27 @@ class ReservationController extends Controller
     public function done(Request $request)
     {
         $sessionId = $request->input('session_id');
+        Log::info('Session ID: ' . $sessionId);
 
         // StripeのセッションIDを使って支払い情報を取得
         Stripe::setApiKey(config('services.stripe.st_key'));
-
         $session = Session::retrieve($sessionId);
 
-        // 支払いが成功しているかを確認
+        // 支払いが成功している場合の処理
         if ($session->payment_status === 'paid') {
-            // Metadataから関連する予約IDを取得
             $reservationId = $session->metadata['reservation_id'];
-
             // 対応する予約データのpayment_statusを更新
             Reservation::where('id', $reservationId)->update(['payment_status' => 'paid']);
-
-            // 支払いステータスを更新したらdoneページを表示
             return view('done');
-        } else {
+        } /*else {
             // 支払いが成功していない場合の処理（エラー表示等）
-            return redirect()->route('reservation.index')->with('error', '支払いが完了していません。');
-        }
+            Log::info('Payment not completed, redirecting with error message.');
+            return redirect()->route('mypage')->with('error', '支払いが完了していません。');
+        }*/
+    }
+    public function undone()
+    {
+        return view('undone');
     }
 
     public function destroy($id)

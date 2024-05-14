@@ -11,6 +11,10 @@
 <div class="alert alert-success">
     {{ session('success') }}
 </div>
+@elseif (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
 @endif
 <div class="mypage__container">
     <div class="reservation">
@@ -66,6 +70,10 @@
                                     @endfor
                             </select>
                         </td>
+                    </tr>
+                    <tr class="reservation__container__table__row">
+                        <th class="reservation__container__table__row__header">payment</th>
+                        <td class="reservation__container__table__row__description">{{ $reservation->payment_status }}</td>
                     </tr>
                 </table>
                 <div class="reservation__container__bottom">
