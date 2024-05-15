@@ -14,6 +14,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\QrCodeGeneratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::post('/login', [LoginController::class, 'store'])
             'guest',
             $limiter ? 'throttle:'.$limiter : null,
         ]));
+Route::get('/qr-code', [QrCodeGeneratorController::class, 'index']);
 
 //'role'にて全ページに配置されているメニューバーをrole_idによって変更
 Route::middleware('role')->group(function () {

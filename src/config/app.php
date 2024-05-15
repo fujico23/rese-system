@@ -177,6 +177,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
     ],
 
     /*

@@ -7,6 +7,11 @@ RUN apt update \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install pdo_mysql zip gd
 
+# imagick ライブラリをインストールして有効にする
+RUN apt-get install -y libmagickwand-dev --no-install-recommends \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick
+
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && composer self-update
