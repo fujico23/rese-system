@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Fortify;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,15 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('role_id', Auth::user()->role_id);
             }
         });
-        //
+
+        //リメンバーミー機能
+        Fortify::authenticateUsing(function ($request) {
+            $validated = Auth::validate($credentials = [
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+
+            return $validated ? Auth::getProvider()->retrieveByCredentials($credentials) : null;
+        });
     }
 }

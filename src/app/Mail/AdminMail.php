@@ -14,17 +14,21 @@ class AdminMail extends Mailable
     public $title;
     public $body;
     public $user;
+    public $qrCode;
+    public $filePath;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($title, $body, $user)
+    public function __construct($title, $body, $user, $qrCode, $filePath)
     {
         $this->title = $title;
         $this->body = $body;
         $this->user = $user;
+        $this->qrCode = $qrCode;
+        $this->filePath = $filePath;
     }
 
     /**

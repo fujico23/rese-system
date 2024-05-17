@@ -30,11 +30,18 @@ use App\Http\Controllers\QrCodeGeneratorController;
 //(FormRequest使用の為)Fortifyの認証機能をオーバーライド
 $limiter = '15,60';
 Route::post('/login', [LoginController::class, 'store'])
-        ->middleware(([
-            'guest',
-            $limiter ? 'throttle:'.$limiter : null,
-        ]));
+    ->middleware(([
+        'guest',
+        $limiter ? 'throttle:' . $limiter : null,
+    ]));
+
+//QRコード閲覧
 Route::get('/qr-code', [QrCodeGeneratorController::class, 'index']);
+//クーポン閲覧機能
+Route::get('/coupon', function () {
+    return view('coupon');
+});
+
 
 //'role'にて全ページに配置されているメニューバーをrole_idによって変更
 Route::middleware('role')->group(function () {
@@ -71,8 +78,8 @@ Route::middleware('role')->group(function () {
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
 
-        //クーポン閲覧機能
-        Route::get('/coupon', function () { return view('coupon');});
+
+
 
         //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {

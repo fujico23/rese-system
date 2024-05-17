@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Mail\AdminMail;
 use App\Mail\AdminMailAll;
 use App\Models\User;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 
 class AdminMailController extends Controller
@@ -19,8 +21,17 @@ class AdminMailController extends Controller
     {
         $title = $request->input('title');
         $body = $request->input('body');
+        $qrCode = QrCode::format('png')
+        ->size(200)
+        ->generate('http://localhost/mypage');
 
-        Mail::to($user->email)->send(new AdminMail($title, $body, $user));
+        //一時ファイルに保存する処理
+        $fileName = 'qrcode.png'; //ファイルの名前を設定
+        Storage::disk('public')->put($fileName, $qrCode); //Storageのpublic/ファイル名と指定してqrCodeを保存する
+        $filePath = Storage::url($fileName); //StorageのfileNameをurlにして変数に代入する
+
+        Mail::to($user->email)->send(new AdminMail($title, $body, $user, $qrCode, $filePath));
+        Storage::delete('public/'.$fileName);
 
         return back()->with('success', 'メールが送信されました！');
     }
