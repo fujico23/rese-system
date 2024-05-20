@@ -14,10 +14,10 @@
     <p>{{ $user->name }}様</p>
     <p>いつも飲食店予約アプリケーション『Rese』をご利用いただき、誠にありがとうございます。</p>
     <p>{{ $body }}</p>
-    <img src="data:image/png;base64, {{ base64_encode($qrCode) }}" alt="QR Code">
-    <img src="{{ $filePath }}" alt="QR Code1">
     <p>今後もより良いサービスを提供出来るよう尽力させていただきますので『Rese』のご利用を何卒宜しくお願い申し上げます。</p>
     <p>Rese</p>
+    <p>Reseの一覧ページ表示はこちらから</p>
+    <img src="{{ $filePath }}" alt="QR Code1">
 </body>
 
 </html>

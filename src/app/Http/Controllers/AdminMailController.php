@@ -23,15 +23,14 @@ class AdminMailController extends Controller
         $body = $request->input('body');
         $qrCode = QrCode::format('png')
         ->size(200)
-        ->generate('http://localhost/mypage');
+        ->generate('http://localhost');
 
-        //一時ファイルに保存する処理
+        //qrCodeを保存する処理
         $fileName = 'qrcode.png'; //ファイルの名前を設定
-        Storage::disk('public')->put($fileName, $qrCode); //Storageのpublic/ファイル名と指定してqrCodeを保存する
-        $filePath = Storage::url($fileName); //StorageのfileNameをurlにして変数に代入する
+        Storage::disk('public')->put($fileName, $qrCode); //filesystem.phpの'public'を設定しqrCodeを保存
+        $filePath = Storage::disk('public')->url($fileName); //urlをhttp://localhost/storage/qrcode.pngに設定
 
         Mail::to($user->email)->send(new AdminMail($title, $body, $user, $qrCode, $filePath));
-        Storage::delete('public/'.$fileName);
 
         return back()->with('success', 'メールが送信されました！');
     }

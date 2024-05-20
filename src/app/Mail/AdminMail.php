@@ -39,6 +39,7 @@ class AdminMail extends Mailable
     public function build()
     {
         return $this->subject('【Rese】' . $this->title)
-        ->view('emails.send_user_mail');
+        ->view('emails.send_user_mail')
+        ->with('filePath', $this->filePath);
     }
 }
