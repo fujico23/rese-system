@@ -38,7 +38,7 @@ class ReservationReminder extends Mailable
         ->size(200)
         ->generate('http://localhost/mypage');
 
-        //qrCodeを保存する処理
+        //qrCodeを保存する処理:本番強の場合はs3に変更
         $fileName = 'qrcode.png'; //ファイルの名前を設定
         Storage::disk('public')->put($fileName, $qrCode); //filesystem.phpの'public'を設定しqrCodeを保存
         $filePath = Storage::disk('public')->url($fileName);

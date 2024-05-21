@@ -14,7 +14,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StripeController;
-use App\Http\Controllers\QrCodeGeneratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +34,8 @@ Route::post('/login', [LoginController::class, 'store'])
         $limiter ? 'throttle:' . $limiter : null,
     ]));
 
-//QRコード閲覧
-Route::get('/qr-code', [QrCodeGeneratorController::class, 'index']);
-//クーポン閲覧機能
-Route::get('/coupon', function () {
-    return view('coupon');
-});
-
+//クーポン表示
+Route::get('/coupon', [AdminMailController::class, 'couponIndex']);
 
 //'role'にて全ページに配置されているメニューバーをrole_idによって変更
 Route::middleware('role')->group(function () {
@@ -77,9 +71,6 @@ Route::middleware('role')->group(function () {
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
-
-
-
 
         //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {
@@ -122,5 +113,6 @@ Route::middleware('role')->group(function () {
         Route::post('admin/users/{user}/mail', [AdminMailController::class, 'sendUserMail'])->name('admin.users.mail');
         Route::get('admin/all/mail', [AdminMailController::class, 'createAllMail'])->name('create.all.mail');
         Route::post('admin/all/mail', [AdminMailController::class, 'sendAllMail'])->name('admin.all.users.mail');
+        Route::post('admin/users/{user}/coupon', [AdminMailController::class, 'sendCoupon'])->name('send.coupon');
     });
 });

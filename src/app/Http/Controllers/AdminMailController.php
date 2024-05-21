@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\AdminMail;
 use App\Mail\AdminMailAll;
+use App\Mail\Coupon;
 use App\Models\User;
+use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
@@ -22,13 +24,14 @@ class AdminMailController extends Controller
         $title = $request->input('title');
         $body = $request->input('body');
         $qrCode = QrCode::format('png')
-        ->size(200)
-        ->generate('http://localhost');
+            ->size(200)
+            ->generate('http://localhost');
 
         //qrCodeを保存する処理
+        //本番環境の場合、publicをs3に変更
         $fileName = 'qrcode.png'; //ファイルの名前を設定
-        Storage::disk('public')->put($fileName, $qrCode); //filesystem.phpの'public'を設定しqrCodeを保存
-        $filePath = Storage::disk('public')->url($fileName); //urlをhttp://localhost/storage/qrcode.pngに設定
+        Storage::disk('public')->put($fileName, $qrCode);
+        $filePath = Storage::disk('public')->url($fileName);
 
         Mail::to($user->email)->send(new AdminMail($title, $body, $user, $qrCode, $filePath));
 
@@ -51,5 +54,28 @@ class AdminMailController extends Controller
         }
 
         return back()->with('success', '全ユーザーにメールが送信されました！');
+    }
+
+    public function sendCoupon(User $user)
+    {
+        $qrCode = QrCode::format('png')
+            ->size(200)
+            ->generate('http://localhost/coupon');
+
+        //qrCodeを保存する処理
+        //本番環境の場合、publicをs3に変更
+        $fileName = 'coupon.png';
+        Storage::disk('public')->put($fileName, $qrCode);
+        $fileUrl = Storage::disk('public')->url($fileName);
+
+        Mail::to($user->email)->send(new Coupon($user, $fileUrl));
+
+        return back()->with('success', 'クーポン付メールが送信されました');
+    }
+
+    public function couponIndex()
+    {
+        $twoMonthsLater = Carbon::now()->addMonths(2);
+        return view('emails.coupon', compact('twoMonthsLater'));
     }
 }

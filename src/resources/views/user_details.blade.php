@@ -107,7 +107,7 @@
             <tr class="user-detail__container__table-row">
                 <th class="user-detail__container__table-row__header">クーポン</th>
                 <td class="user-detail__container__table-row__detail">
-                    <form class="user-detail__container__table-row__form-submit" action="{{ route('admin.users.mail', $user)  }}" method="post">
+                    <form class="user-detail__container__table-row__form-submit" action="{{ route('send.coupon', $user)  }}" method="post">
                         @csrf
                         <input type="hidden" name="email" value="{{ $user->email }}">
                         <input type="text" readonly value="期限:2024/12/31末">
