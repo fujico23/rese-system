@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
         foreach ($todayReservations as $reservation) {
         Mail::to($reservation->user->email)->send(new ReservationReminder($reservation));
         }
-        })->dailyAt('11:59');
+        })->dailyAt('17:36');
         $schedule->call(function () {
         Log::info('Review reminder sent');
         $yesterdayReservations = Reservation::whereDate('reservation_date', now()->subDay())->where('status', '予約済み')->get();

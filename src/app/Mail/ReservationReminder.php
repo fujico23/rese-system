@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Carbon;
 
 class ReservationReminder extends Mailable
 {
@@ -34,23 +35,36 @@ class ReservationReminder extends Mailable
     public function build()
     {
         $qrCode = QrCode::format('png')
-        ->size(200)
-        ->generate(route('reservation.confirm', ['id' => $this->reservation->id]));
+            ->size(200)
+            ->generate(route('reservation.confirm.qr', ['id' => $this->reservation->id]));
 
-        //qrCodeを保存する処理:本番強の場合はs3に変更
-        $fileName = 'qrcode.png';
-        Storage::disk('public')->put($fileName, $qrCode);
-        $filePath = Storage::disk('public')->url($fileName);
+        // ユニークなファイル名を作成
+        $fileName = 'qrcode_' . $this->reservation->id . '.png';
+
+        // フォルダー名を予約日で作成
+        $reservationDate = Carbon::parse($this->reservation->reservation_date);
+        $folderName = 'qrcodes/' . $reservationDate->format('Y-m-d');
+
+        // フルパスを作成
+        $filePath = $folderName . '/' . $fileName;
+
+        // QRコードを保存する処理：本番環境の場合はS3に変更
+        Storage::disk('public')->put($filePath, $qrCode);
+        $url = Storage::disk('public')->url($filePath);
 
         return $this->view('emails.reservation_reminder')
-        ->with([
-            'reservationDate' => $this->reservation->reservation_date,
-            'reservationTime' => $this->reservation->reservation_time,
-            'userName' => $this->reservation->user->name,
-            'shopName' => $this->reservation->shop->shop_name,
-            'numberOfGuests' => $this->reservation->number_of_guests,
-            'filePath' => $filePath,
-        ])
-        ->subject('【Rese】本日ご予約の確認です');
+            ->with([
+                'reservationDate' => $this->reservation->reservation_date,
+                'reservationTime' => $this->reservation->reservation_time,
+                'userName' => $this->reservation->user->name,
+                'shopName' => $this->reservation->shop->shop_name,
+                'numberOfGuests' => $this->reservation->number_of_guests,
+                'paymentStatus' => $this->reservation->payment_status,
+                'status' => $this->reservation->status,
+                'courseName' => $this->reservation->course->course_name,
+                'coursePrice' => $this->reservation->course->price,
+                'filePath' => $url,
+            ])
+            ->subject('【Rese】本日ご予約の確認です');
     }
 }

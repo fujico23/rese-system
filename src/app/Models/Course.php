@@ -15,4 +15,9 @@ class Course extends Model
     {
         return $this->belongsTo(Shop::class);
     }
+
+    public function reservation()
+    {
+        return $this->hasOne(reservation::class);
+    }
 }

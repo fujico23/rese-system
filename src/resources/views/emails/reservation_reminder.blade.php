@@ -20,6 +20,17 @@
             <p class="reminder__container-confirm-description" id="reservation_date">予約日：{{ $reservationDate }}</p>
             <p class="reminder__container-confirm-description" id="reservation_time">予約時間：{{ $reservationTime }}</p>
             <p class="reminder__container-confirm-description" id="number_of_guests">予約人数：{{ $numberOfGuests }}人</p>
+            <p class="reminder__container-confirm-description" id="number_of_guests">コース名：{{ $courseName }}</p>
+            <p class="reminder__container-confirm-description" id="number_of_guests">1人あたりの金額：{{ $coursePrice }}円</p>
+            <p class="reminder__container-confirm-description" id="number_of_guests">支払い状況：
+                @if($paymentStatus === 'paid')
+                支払い済み
+                @elseif($paymentStatus === 'unpaid')
+                当日のお支払い
+                @else
+                支払い状況不明
+                @endif
+            </p>
         </div>
 
         <p class="reminder__container-message">なお、ご予約を変更される場合は、お手数ですが{{ $shopName }}様に直接ご連絡をお願いいたします。</p>

@@ -1,0 +1,14 @@
+.reservation__header {
+    max-width: 400px;
+    text-align: center;
+}
+
+.reservation__container {
+    max-width: 400px;
+    border: 1px #ddd solid;
+    border-radius: 2px;
+}
+
+.reservation__container__item {
+    
+}

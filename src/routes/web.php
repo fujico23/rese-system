@@ -117,4 +117,4 @@ Route::middleware('role')->group(function () {
 
 //クーポン読み取り後のファイル表示処理
 Route::get('/coupon', [QrCodeController::class, 'couponIndex'])->name('coupon.index');
-Route::get('/reservation/confirm/{id}', [QrCodeController::class, 'show'])->name('reservation.confirm');
+Route::get('/reservation/confirm/{id}', [QrCodeController::class, 'show'])->name('reservation.confirm.qr');
