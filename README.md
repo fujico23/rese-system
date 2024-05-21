@@ -52,9 +52,9 @@
 - 予約完了後、サンクスページ表示
 - 予約情報が不十分の場合、エラーメッセージ表示
 - 予約後、遷移したdoneページからMypageに遷移し予約が確認出来る挙動にしている
+- 予約当日AM09:00にリマインダーメール送信。予約確認用にmypageに遷移するQRコード添付
 - 予約データ送信後、カード情報を入力するフォームに遷移。支払いが完了するとMypageにてpayment項目が「paid」に変更されるが、支払い完了する前に別のページに遷移した場合「unpaid」になる
 ###### ※テストモードでの実装のためカード番号：4242424242424242にてご利用下さい
-- 予約当日AM09:00にリマインダーメール送信。予約確認用にmypageに遷移するQRコード添付
 
 #### **Stripe(TAKEOUT)機能**
 - ログインユーザーの場合、TAKEOUTリンク表示(ただし、メール未認証ユーザーの場合verify-emailファイルに遷移)
@@ -158,6 +158,7 @@
 - details.blade.php
 - mypage.blade.php
 - ManagementController
+- AdminMailController
 - AdminMailController
 
 ###### ■SES

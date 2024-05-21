@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminMailController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\StripeController;
 
 /*
@@ -33,9 +34,6 @@ Route::post('/login', [LoginController::class, 'store'])
         'guest',
         $limiter ? 'throttle:' . $limiter : null,
     ]));
-
-//クーポン表示
-Route::get('/coupon', [AdminMailController::class, 'couponIndex']);
 
 //'role'にて全ページに配置されているメニューバーをrole_idによって変更
 Route::middleware('role')->group(function () {
@@ -116,3 +114,7 @@ Route::middleware('role')->group(function () {
         Route::post('admin/users/{user}/coupon', [AdminMailController::class, 'sendCoupon'])->name('send.coupon');
     });
 });
+
+//クーポン読み取り後のファイル表示処理
+Route::get('/coupon', [QrCodeController::class, 'couponIndex'])->name('coupon.index');
+Route::get('/reservation/confirm/{id}', [QrCodeController::class, 'show'])->name('reservation.confirm');
