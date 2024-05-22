@@ -9,16 +9,18 @@
 </head>
 
 <body>
-    <h1 class="reservation__header">{{ $userName }}様の本日の予約のご確認</h1>
+    <h1 class="reservation__header">Reservation Confirm</h1>
     <div class="reservation__container">
         <p class="reservation__container__item">Shop Name: {{ $shopName }}</p>
         <p class="reservation__container__item">Reservation Date: {{ $reservationDate }}</p>
         <p class="reservation__container__item">Reservation Time: {{ $reservationTime }}</p>
+        <p class="reservation__container__item">Name: {{ $userName }}</p>
         <p class="reservation__container__item">Number of Guests: {{ $numberOfGuests }}</p>
         <p class="reservation__container__item">Course：{{ $courseName }}</p>
         <p class="reservation__container__item">Amount per person：¥{{ $coursePrice }}</p>
+        <p class="reservation__container__item">Total Amount: ¥{{ $totalAmount }}</p>
         <p class="reservation__container__item">Payment_status：{{ $paymentStatus }}</p>
-        <p class="reservation__container__item">Status：¥{{ $status }}</p>
+        <p class="reservation__container__item">Status：{{ $status }}</p>
     </div>
 </body>
 

@@ -11,16 +11,18 @@
     <div class="review__form__group">
         <p>{{ Auth::user()->name }} さん</p>
         <p><span>
-            @if($reservation = $shop->reservations->first())
-            {{ $reservation->reservation_date }}
-            @endif
+                @if($reservation = $shop->reservations->first())
+                {{ $reservation->reservation_date }}
+                @endif
             </span>に
         </p>
         <p>「<span>{{ $shop->shop_name }}</span>」へご来店いただいた際の</p>
         <p>ご意見をお聞かせ下さい。</p>
         <p>今後の参考にさせていただきます!</p>
     </div>
-
+    @error('rating')
+    <p class="alert alert-danger">{{ $message }}</p>
+    @enderror
     <div class="review__form__group-evaluation">
         <input id="star1" type="radio" name="rating" value="5" />
         <label for="star1"><span class="text">5</span>★</label>
@@ -33,6 +35,9 @@
         <input id="star5" type="radio" name="rating" value="1" />
         <label for="star5"><span class="text">1</span>★</label>
     </div>
+    @error('comment')
+    <p class="alert alert-danger">{{ $message }}</p>
+    @enderror
     <div class="review__form__group-textarea">
         <label class="review__form__group__label">コメント</label>
         <textarea name="comment" id="comment" rows="4" cols="50"></textarea>

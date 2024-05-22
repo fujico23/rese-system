@@ -37,7 +37,7 @@
         <p class="reminder__container-message">無断でのキャンセルの場合、次回のご予約に影響が出る可能性がございますので、</p>
         <p class="reminder__container-message">何卒ご了承いただきますようお願い申し上げます。</p>
         <p class="reminder__container-message">またのご利用を心よりおまちしております。</p>
-        <p>予約のご確認はマイページからお願い致します</p>
+        <p>ご来店の際は以下のQRを{{ $shopName }}従業員様に表示出来る準備をして下さい</p>
         <img src="{{ $filePath }}" alt="QR Code1">
     </div>
 </body>

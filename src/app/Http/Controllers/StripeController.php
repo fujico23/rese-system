@@ -80,21 +80,4 @@ class StripeController extends Controller
         $reservation->payment_status = 'paid';
         $reservation->save();
     }
-   /* public function handleWebhook(Request $request)
-    {
-        $payload = json_decode($request->getContent(), true);
-        Log::info('Stripe Webhook Payload:', $payload);
-
-        if ($payload['data']['object']['object'] === 'payment_intent') {
-            $paymentIntent = $payload['data']['object'];
-            $reservationId = $paymentIntent['metadata']['reservation_id'];
-
-            // 予約情報の更新
-            $reservation = Reservation::findOrFail($reservationId);
-            $reservation->payment_status = 'paid';
-            $reservation->save();
-        }
-
-        return response()->json(['status' => 'success']);
-    }*/
 }

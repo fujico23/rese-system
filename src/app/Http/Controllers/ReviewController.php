@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Review;
-use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller
 {
@@ -15,7 +15,7 @@ class ReviewController extends Controller
         return view('shop_review', compact('shop'));
     }
 
-    public function store(Shop $shop, Request $request)
+    public function store(Shop $shop, ReviewRequest $request)
     {
         // 同店舗・同ユーザーで複数回予約が入っていた場合、statusが予約済みの最初のデータを取得
         $reservation = $shop->reservations()
@@ -31,7 +31,7 @@ class ReviewController extends Controller
             ];
             Review::create($reviewData);
 
-            $status = $request->input('status'); // inputメソッドを使用してstatusを取得
+            $status = $request->input('status');
             $reservation->update(['status' => $status]);
 
             return view('review_done', compact('shop'));
