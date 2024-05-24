@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Shop;
 use App\Models\ShopUser;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller
@@ -23,7 +24,8 @@ class AdminController extends Controller
         $shops = Shop::all();
         $userRoleId = $user->role_id;
         $shopUsers = ShopUser::where('user_id', $user->id)->get();
-        return view('user_details', compact('shopUsers', 'user', 'roles', 'shops', 'userRoleId'));
+        $twoMonthsLater = Carbon::now()->addMonths(2);
+        return view('user_details', compact('shopUsers', 'user', 'roles', 'shops', 'userRoleId','twoMonthsLater'));
     }
 
     public function update(Request $request, User $user)

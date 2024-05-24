@@ -16,6 +16,15 @@
     {{ session('error') }}
 </div>
 @endif
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul class="alert-danger__list">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <div class="mypage__container">
     <div class="reservation">
         <h3 class="reservation__confirm">予約状況</h3>
@@ -80,6 +89,7 @@
                     <button id="enableEdit{{ $reservation->id }}" class="reservation__container__bottom-edit__btn btn" type="button" onclick="enableEditAndEnableSubmit('{{ $reservation->id }}')">編集</button>
                     <button id="enableSubmit{{ $reservation->id }}" class="reservation__container__bottom-submit__btn btn" type="submit" disabled>確定</button>
                 </div>
+                <input type="hidden" name="course_id" value="{{ $reservation->course_id }}">
             </form>
         </div>
         @endforeach

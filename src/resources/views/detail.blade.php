@@ -23,7 +23,7 @@
         @else
         <img src="{{ asset('storage/' . $shop->images->first()->image_url) }}" alt="{{ $shop->shop_name }}">
         <!-- 本番環境の場合
-        <img src="{{ Storage::url($shop->images->first()->image_url) }}" alt="{{ $shop->shop_name }}"> -->
+        <img src="{{ Storage::disk('s3')->url($shop->images->first()->image_url) }}" alt="{{ $shop->shop_name }}"> -->
         @endif
         @else
         <p>準備中です</p>
@@ -58,7 +58,7 @@
             <div class="reservation-form__inner">
                 <h2 class="reservation__heading">予約</h2>
                 <div class="reservation-date form__tag">
-                    <input type="date" name="reservation_date" id="reservation_date" value="予約日を選択してください">
+                    <input type="date" name="reservation_date" id="reservation_date" placeholder="予約日を選択してください" value="{{ old('reservation_date') }}">
                 </div>
                 <p class="reservation-error">
                     @error('reservation_date')
@@ -69,7 +69,9 @@
                     <select name="reservation_time">
                         <option value="">予約時間を選択してください</option>
                         @foreach($reservationTimes as $time)
-                        <option value="{{ $time }}">{{ $time }}</option>
+                        <option value="{{ $time }}" {{ old('reservation_time') == $time ? 'selected' : '' }}>
+                            {{ $time }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -79,10 +81,13 @@
                     @enderror
                 </p>
                 <div class="numer-of-guests form__tag">
-                    <select name="number_of_guests" id="number_of_guests"><!-- idを追加 -->
+                    <select name="number_of_guests" id="number_of_guests">
                         <option value="">予約人数を選択してください</option>
-                        @for ($count = 1; $count <= 20; $count++) <option value="{{ $count }}">{{ $count }}人</option>
-                            @endfor
+                        @for ($count = 1; $count <= 20; $count++)
+                        <option value="{{ $count }}" {{ old('number_of_guests') == $count ? 'selected' : '' }}>
+                            {{ $count }}人
+                        </option>
+                        @endfor
                     </select>
                 </div>
                 <p class="reservation-error">
@@ -94,7 +99,9 @@
                     <select name="course_id">
                         <option value="">予約コースを選択してください</option>
                         @foreach($courses as $course)
-                        <option value="{{ $course->id }}" data-price="{{ $course->price }}">{{ $course->course_name }} - ¥{{ number_format($course->price) }}</option>
+                        <option value="{{ $course->id }}" data-price="{{ $course->price }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
+                            {{ $course->course_name }} - ¥{{ number_format($course->price) }}
+                        </option>
                         @endforeach
                     </select>
                 </div>

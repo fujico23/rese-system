@@ -24,8 +24,7 @@ class AdminMailController extends Controller
         $body = $request->input('body');
         $qrCode = QrCode::format('png')
             ->size(200)
-            ->generate(route('index)'));
-            //('http://localhost');
+            ->generate(route('index'));
 
         //本番環境の場合、publicをs3に変更
         $fileName = 'qrcode.png'; //ファイルの名前を設定
@@ -60,7 +59,6 @@ class AdminMailController extends Controller
         $qrCode = QrCode::format('png')
             ->size(200)
             ->generate(route('coupon.index'));
-            //('http://localhost/coupon');
 
         //本番環境の場合、publicをs3に変更
         $fileName = 'coupon.png';

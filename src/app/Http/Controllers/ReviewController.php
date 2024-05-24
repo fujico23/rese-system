@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller

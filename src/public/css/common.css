@@ -169,6 +169,10 @@ body {
   background-color: #d7f8dd;
 }
 
+.alert-danger__list li{
+  list-style-type: none;
+}
+
 
 /* 認証ページとthanks・doneページの枠組み*/
 .auth__container,

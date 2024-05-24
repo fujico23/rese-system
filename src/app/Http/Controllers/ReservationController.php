@@ -66,11 +66,7 @@ class ReservationController extends Controller
             // 対応する予約データのpayment_statusを更新
             Reservation::where('id', $reservationId)->update(['payment_status' => 'paid']);
             return view('done');
-        } /*else {
-            // 支払いが成功していない場合の処理（エラー表示等）
-            Log::info('Payment not completed, redirecting with error message.');
-            return redirect()->route('mypage')->with('error', '支払いが完了していません。');
-        }*/
+        }
     }
     public function undone()
     {
@@ -85,7 +81,7 @@ class ReservationController extends Controller
         return redirect()->route('mypage')->with('success', '予約が削除されました');
     }
 
-    public function update(Request $request, $id)
+    public function update(ReservationRequest $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
         $data = $request->only(['reservation_date', 'reservation_time', 'number_of_guests']);

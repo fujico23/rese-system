@@ -110,7 +110,7 @@
                     <form class="user-detail__container__table-row__form-submit" action="{{ route('send.coupon', $user)  }}" method="post">
                         @csrf
                         <input type="hidden" name="email" value="{{ $user->email }}">
-                        <input type="text" readonly value="期限:2024/12/31末">
+                        <input type="text" readonly value="期限:{{ $twoMonthsLater->format('Y-m-d') }}">
                         <button class="user-detail__container__table__btn-submit" type="submit">送信</button>
                     </form>
                 </td>

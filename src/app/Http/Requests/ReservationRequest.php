@@ -40,7 +40,8 @@ class ReservationRequest extends FormRequest
   {
     return [
       'reservation_date.required' => '予約日を入力してください',
-      'reservation_date.after_or_equal' => '翌日以降の日程で予約して下さい',
+      'reservation_date.date' => '予約日は日付形式で入力してください',
+      'reservation_date.after_or_equal' => '本日以前の日程は予約出来ません',
       'reservation_date.before_or_equal' => '2ヶ月以内の予約日で設定して下さい',
       'reservation_time.required' => '予約時間を入力してください',
       'number_of_guests.required' => '予約人数を入力してください',

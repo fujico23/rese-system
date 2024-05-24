@@ -45,7 +45,7 @@ class ManagementController extends Controller
         // 画像がアップロードされているかを確認
         if ($request->hasFile('image_url')) {
             $file = $request->file('image_url');
-            //本番環境で、S3に保存するコード（ローカルではコメントアウトにしておく）
+            //本番環境の場合、S3に保存するコード（ローカルではコメントアウト）
             //$filename = Storage::disk('s3')->put('shop_images', $file);
             //$data['image_url'] = Storage::disk('s3')->url($filename);
 
@@ -64,8 +64,8 @@ class ManagementController extends Controller
         if ($request->hasFile('image_url')) {
             // 画像がアップロードされている場合、Imageモデルを使ってデータベースに保存する
             $image = new Image();
-            $image->shop_id = $shop->id; // 店舗IDを設定
-            $image->image_url = $data['image_url']; // 画像のファイルパスを保存
+            $image->shop_id = $shop->id;
+            $image->image_url = $data['image_url'];
             $image->save();
         }
 
@@ -77,15 +77,11 @@ class ManagementController extends Controller
         // チェックボックスから送信された画像IDの配列を取得
         $imageIds = $request->input('images', []);
         if (!empty($imageIds)) {
-            // IDに基づいて画像データを取得
+            // IDに基づいて画像データを取得し、ストレージとDBから削除
             $images = Image::whereIn('id', $imageIds)->get();
-
             foreach ($images as $image) {
-                // ストレージから画像ファイルを削除
                 $filePath = 'public/' . $image->image_url;
                 Storage::delete($filePath);
-
-                // データベースから画像のレコードを削除
                 $image->delete();
             }
 
