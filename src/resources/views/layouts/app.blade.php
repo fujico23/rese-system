@@ -19,7 +19,6 @@
                 <div class="header__heading__left">
                 <div class="hamburger-menu" onclick="toggleMenu()">
                 <img  src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32">
-                        <!-- <i class="fa-solid fa-bars fa-lg" style="color: gray;"></i> -->
                     </div>
                     @if (Auth::check())
                       @if($role_id == 3)
@@ -32,7 +31,6 @@
                     @else
                       @include('menu.menu4')
                     @endif
-                    <!-- <div class="header__heading__left-logo1"><img  src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32"></div> -->
                     <h1 class="header__heading__left-logo2">Rese</h1>
 
                 </div>
@@ -76,7 +74,7 @@
                             <div class="header__search-form__inner__group__keyword">
                                 <div class="header__search-form__inner__group__keyword-action">
                                     <button class="" type="submit">
-                                        <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i>
+                                        <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                     <input class="header__search-form__inner__group__keyword-action-input search-form__keyword-input" type="text" name="keyword" placeholder="Search..." value="">
                                 </div>
@@ -104,15 +102,12 @@
                 // Ajaxリクエストを送信
                 $.ajax({
                     type: 'GET',
-                    url: '/search', // フォームの送信先URLを適切に変更してください
+                    url: '/search',
                     data: formData,
                     success: function(response) {
-                        // Ajaxリクエストが成功した場合の処理
-                        // ここに検索結果を表示するなどの処理を記述してください
                         console.log(response);
                     },
                     error: function(xhr, status, error) {
-                        // Ajaxリクエストが失敗した場合の処理
                         console.error(xhr.responseText);
                     }
                 });

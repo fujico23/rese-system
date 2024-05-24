@@ -8,7 +8,6 @@
     </li>
     <li class="menu__link"><a href="/">Home</a></li>
     <li class="menu__link"><a href="/mypage">Mypage</a></li>
-    <li class="menu__link"><a href="/management">Shop Management</a></li>
     <li class="menu__link"><a href="/admin">admin</a></li>
     <li class="menu__link"><a href="/admin/shop/create">Shop Create</a></li>
     <li class="menu__link">

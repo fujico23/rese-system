@@ -19,8 +19,6 @@
         <p class="reminder__container-message">ご意見を参考にさせていただき</p>
         <p class="reminder__container-message">サービスの向上に努めてまいります。</p>
         <p class="reminder__container-message">今後もReseのご利用を心よりおまちしております。</p>
-        弊社情報はこちら↓<br>
-        {!! QrCode::generate(url('https://coachtech.site/?gad_source=1&utm_campaign=coachtech&utm_medium=ppc&hsa_mt=e&hsa_cam=11225035106&hsa_kw=coachtech&hsa_acc=5245015319&utm_term=coachtech&gclid=CjwKCAjwuJ2xBhA3EiwAMVjkVFxZjAvZqx_2ZWpIQszH5AwEMYMKjUQkNu-DE80W1flteiCoc0bDERoCkZYQAvD_BwE&hsa_tgt=aud-1435517835582:kwd-768959043722&hsa_src=g&hsa_ver=3&hsa_grp=107325014382&hsa_ad=533125441083&hsa_net=adwords&utm_source=adwords/')) !!}<br>
     </div>
 </body>
 
