@@ -9,7 +9,7 @@ class Shop extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['shop_name', 'area_id', 'genre_id', 'description','is_active'];
+    protected $fillable = ['shop_name', 'area_id', 'genre_id', 'description', 'is_active'];
 
     public function area()
     {

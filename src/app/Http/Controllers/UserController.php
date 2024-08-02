@@ -39,7 +39,7 @@ class UserController extends Controller
         Log::info('Session success: ' . Session::get('success'));
         Log::info('Session error: ' . Session::get('error'));
 
-        return view('mypage', compact('role_id', 'favorites', 'userReservations', 'reservationCount','reservationTimes'));
+        return view('mypage', compact('role_id', 'favorites', 'userReservations', 'reservationCount', 'reservationTimes'));
     }
 
     public function destroy(Request $request)
