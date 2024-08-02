@@ -24,8 +24,12 @@
     </div>
     <div class="card__details">
       <h2 class="card__details__name">{{ $shop->shop_name }}</h2>
-      <span class="card__details__area hashtag">#{{ $shop->area->area_name }}</span>
-      <span class="card__details__genre hashtag">#{{ $shop->genre->genre_name }}</span>
+      <span class="card__details__area hashtag" onclick="window.location.href='{{ route('shops.filterByArea', ['areaName' => $shop->area->area_name]) }}'">
+        #{{ $shop->area->area_name }}
+      </span>
+      <span class="card__details__genre hashtag" onclick="window.location.href='{{ route('shops.filterByGenre', ['genreName' => $shop->genre->genre_name]) }}'">
+        #{{ $shop->genre->genre_name }}
+      </span>
       @if($shop->isReserved)
       <i class="fa-solid fa-square-pen fa-shake fa-xl" style="color: #FFD43B;"></i>
       @endif
@@ -74,32 +78,32 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var appData = document.getElementById('app-data');
+  document.addEventListener('DOMContentLoaded', function() {
+    var appData = document.getElementById('app-data');
 
-  // data-email-verified 属性の存在チェック
-  if (appData.hasAttribute('data-email-verified')) {
-    var emailVerified = appData.dataset.emailVerified === 'true';
+    // data-email-verified 属性の存在チェック
+    if (appData.hasAttribute('data-email-verified')) {
+      var emailVerified = appData.dataset.emailVerified === 'true';
 
-    // メールアドレスが認証されていない場合にのみモーダル表示
-    if (!emailVerified) {
-      var modal = document.getElementById('emailVerifyModal');
-      modal.style.display = "block";
+      // メールアドレスが認証されていない場合にのみモーダル表示
+      if (!emailVerified) {
+        var modal = document.getElementById('emailVerifyModal');
+        modal.style.display = "block";
 
-      // 閉じるボタンの処理
-      var closeButton = document.querySelector('.modal__content__close-button');
-      closeButton.onclick = function() {
-        modal.style.display = "none";
-      }
-
-      // モーダル外のエリアをクリックで閉じる処理
-      window.onclick = function(event) {
-        if (event.target == modal) {
+        // 閉じるボタンの処理
+        var closeButton = document.querySelector('.modal__content__close-button');
+        closeButton.onclick = function() {
           modal.style.display = "none";
+        }
+
+        // モーダル外のエリアをクリックで閉じる処理
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
         }
       }
     }
-  }
-});
+  });
 </script>
 @endsection
