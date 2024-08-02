@@ -18,7 +18,7 @@ class ShopController extends Controller
     {
         //メール認証していないユーザーに対してモーダルウィンドウで促す為に
         $emailVerified = true;
-        if(Auth::check() && is_null(Auth::user()->email_verified_at)) {
+        if (Auth::check() && is_null(Auth::user()->email_verified_at)) {
             $emailVerified = false;
         }
 
@@ -71,7 +71,7 @@ class ShopController extends Controller
             $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
         });
 
-        return view('index', compact('emailVerified','areas', 'genres', 'shops'));
+        return view('index', compact('emailVerified', 'areas', 'genres', 'shops'));
     }
 
     public function search(Request $request)
@@ -124,9 +124,83 @@ class ShopController extends Controller
         }
 
         $courses = Course::where('shop_id', $shop->id)
-        ->get();
+            ->get();
 
         return view('detail', compact('shop', 'reservations', 'reservationTimes', 'courses'));
+    }
+
+    //ハッシュタグ area検索
+    public function filterByArea($areaName)
+    {
+        $user = Auth::user();
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        // 該当するエリア名のレコードを取得
+        $shops = Shop::with(['area', 'genre', 'images'])
+            ->whereHas('area', function ($query) use ($areaName) {
+                $query->where('area_name', $areaName);
+            })
+            ->where('is_active', true)
+            ->get();
+
+        // 予約済みやお気に入りの処理を追加する場合は、indexメソッドと同様のロジックを適用する
+        $reservedShopIds = [];
+        $favoriteShopIds = [];
+
+        if ($user) {
+            $reservedShopIds = Reservation::where('user_id', $user->id)
+                ->where('status', '予約済み')
+                ->whereDate('reservation_date', '<', now())
+                ->pluck('shop_id')
+                ->toArray();
+
+            $favoriteShopIds = $user->favorites->pluck('shop_id')->toArray();
+        }
+
+        $shops->each(function ($shop) use ($reservedShopIds, $favoriteShopIds) {
+            $shop->isReserved = in_array($shop->id, $reservedShopIds);
+            $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
+        });
+
+        return view('index', compact('areas', 'genres', 'shops'));
+    }
+
+    //ハッシュタグ genre検索
+    public function filterByGenre($genreName)
+    {
+        $user = Auth::user();
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        // 該当するジャンル名のレコードを取得
+        $shops = Shop::with(['area', 'genre', 'images'])
+            ->whereHas('genre', function ($query) use ($genreName) {
+                $query->where('genre_name', $genreName);
+            })
+            ->where('is_active', true)
+            ->get();
+
+        // 予約済みやお気に入りの処理を追加する場合は、indexメソッドと同様のロジックを適用する
+        $reservedShopIds = [];
+        $favoriteShopIds = [];
+
+        if ($user) {
+            $reservedShopIds = Reservation::where('user_id', $user->id)
+                ->where('status', '予約済み')
+                ->whereDate('reservation_date', '<', now())
+                ->pluck('shop_id')
+                ->toArray();
+
+            $favoriteShopIds = $user->favorites->pluck('shop_id')->toArray();
+        }
+
+        $shops->each(function ($shop) use ($reservedShopIds, $favoriteShopIds) {
+            $shop->isReserved = in_array($shop->id, $reservedShopIds);
+            $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
+        });
+
+        return view('index', compact('areas', 'genres', 'shops'));
     }
 
     public function create()

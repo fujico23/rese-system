@@ -41,6 +41,10 @@ Route::middleware('role')->group(function () {
     Route::get('/thanks', [AuthController::class, 'thanks']);
     Route::get('/', [ShopController::class, 'index'])->name('index');
     Route::get('/search', [ShopController::class, 'search'])->name('search');
+    // ハッシュタグリンク
+    Route::get('/shops/area/{areaName}', [ShopController::class, 'filterByArea'])->name('shops.filterByArea');
+    Route::get('/shops/genre/{genreName}', [ShopController::class, 'filterByGenre'])->name('shops.filterByGenre');
+
     Route::get('/detail/{shop}', [ShopController::class, 'show'])->name('shop.detail');
     Route::get('detail/{shop}/review/index', [ReviewController::class, 'index'])->name('shop.review.index');
     //会員登録かつメール認証後にお気に入り機能・マイページ閲覧・予約機能可能
