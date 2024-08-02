@@ -17,21 +17,21 @@
         <header class="header">
             <div class="header__heading">
                 <div class="header__heading__left">
-                <div class="hamburger-menu" onclick="toggleMenu()">
-                <img  src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32">
+                    <div class="hamburger-menu" onclick="toggleMenu()">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo" width="32" height="32">
                     </div>
                     @if (Auth::check())
-                      @if($role_id == 3)
-                        @include('menu.menu3')
-                      @elseif($role_id == 2)
-                        @include('menu.menu2')
-                      @elseif($role_id == 1)
-                        @include('menu.menu1')
-                      @endif
-                    @else
-                      @include('menu.menu4')
+                    @if($role_id == 3)
+                    @include('menu.menu3')
+                    @elseif($role_id == 2)
+                    @include('menu.menu2')
+                    @elseif($role_id == 1)
+                    @include('menu.menu1')
                     @endif
-                    <h1 class="header__heading__left-logo2">Rese</h1>
+                    @else
+                    @include('menu.menu4')
+                    @endif
+                    <h1 class="header__heading__left-logo2"><a href="{{ route('index') }}">Rese</a></h1>
 
                 </div>
                 <div class="header__heading__right">
