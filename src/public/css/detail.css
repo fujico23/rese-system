@@ -44,12 +44,12 @@
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    color: #444; 
+    color: #444;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .return:hover {
-    background-color:blue;
+    background-color: blue;
     color: #fff;
 }
 
@@ -57,7 +57,7 @@
     display: inline-block;
     margin-left: auto;
     padding: 2px 5px;
-    background-color: #E8AA27;
+    background-color: #e8aa27;
     text-decoration: none;
     color: #fff;
     font-weight: bold;
@@ -78,50 +78,139 @@
 }
 
 /*　レビュースタイル　*/
-.reviews-index,
-.reviews-create {
-    background-color: gray;
-    text-align: center;
-    justify-content: center;
-    margin-left: 7px;
-}
-
-.reviews-index {
-    background-color: #fff;
-    border: 2px solid #444;
-}
-
-.reviews-create {
-    background-color: #444;
-    border: 2px solid #444;
-}
-.reviews-index a,
-.reviews-create a {
-    text-decoration: none;
-    padding: 5px;
-    font-size: 12px;
-}
-.reviews-index a {
+.review-link {
     color: #444;
 }
-.reviews-create a {
+.review-link:hover {
+    color: #8b8b8b;
+}
+.reviews-index {
+    background-color: #007bff;
     color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+.reviews-index:hover {
+    background-color: #3d5369;
 }
 
-.reviews-create:hover {
-    background-color: rgb(90, 90, 90);
+.review-section__container {
+    max-width: 1000px;
+    list-style-type: none;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+.review-section__container__group {
+    border-top: 1px solid #ccc;
+    padding: 1rem 0;
+}
+.review-edit-delete__group {
+    display: flex;
+    justify-content: flex-end;
+}
+.review-section__container__group:last-child {
+    border-bottom: 1px solid #ccc;
+}
+.review-edit-delete__group form,
+.review-edit-delete__group a {
+    display: inline-block;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: black;
+}
+.review-edit-delete__group form:hover,
+.review-edit-delete__group a:hover {
+    color: #8b8b8b;
+}
+.review-edit-delete__group a {
+    margin-right: 8px;
+}
+
+.review-section__container__group__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.review-section__container__group__inner p {
+    margin: 0;
+}
+
+.review-section__container__group__inner .name,
+.review-section__container__group__inner .date,
+.review-section a {
+    font-size: 0.8rem;
+}
+.review-section__container__group__inner .star1:before {
+    content: "★☆☆☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #007bff 20%, #d9d9d9 80%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.review-section__container__group__inner .star2:before {
+    content: "★★☆☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #007bff 40%, #d9d9d9 60%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.review-section__container__group__inner .star3:before {
+    content: "★★★☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #007bff 60%, #d9d9d9 40%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.review-section__container__group__inner .star4:before {
+    content: "★★★★☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #007bff 80%, #d9d9d9 20%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.review-section__container__group__inner .star5:before {
+    content: "★★★★★";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #007bff, #007bff);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.review-section__container__group__inner .comment {
+    text-align: justify;
+    position: relative;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.review-section a {
+    text-align: center;
 }
 
 /* 予約側スタイル */
 .reservation-container {
     box-sizing: border-box;
-    background-color: #305DFF;
+    background-color: #305dff;
     color: #fff;
     border-radius: 5px;
     position: relative;
     top: -80px;
-  }
-
+}
 
 .reservation-form__inner {
     border: none;
@@ -149,8 +238,8 @@
     padding: 7px;
 }
 
-.reservation__table{
-    background-color: #4D7FFF;
+.reservation__table {
+    background-color: #4d7fff;
     border-radius: 3px;
     margin-top: 20px;
     margin-bottom: 180px;
@@ -159,7 +248,7 @@
 }
 
 .reservation__btn {
-    background-color: #0538FF;
+    background-color: #0538ff;
     width: 100%;
     text-align: center;
 }

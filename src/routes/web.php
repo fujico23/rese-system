@@ -73,6 +73,9 @@ Route::middleware('role')->group(function () {
         Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
+        Route::delete('{reservation}/delete', [ReviewController::class, 'destroy'])->name('review.delete');
+        Route::get('/{shop}/{reservation}/edit', [ReviewController::class, 'edit'])->name('review.edit');
+        Route::patch('/{shop}/{review}/update', [ReviewController::class, 'update'])->name('review.update');
 
         //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {

@@ -34,19 +34,54 @@
         <div class="hashtag">
             <span class="shop-area">#{{ $shop->area->area_name }}</span>
             <span class="shop-genre">#{{ $shop->genre->genre_name }}</span>
-            <!-- 予約情報がある場合にレビューを記述するリンクを表示 -->
-            <span class="reviews-index">
-                <a href="{{ route('shop.review.index', $shop) }}" class="review-link">レビュー一覧</a>
-            </span>
-            @if(!empty($reservations))
-            <span class="reviews-create">
-                <a href="{{ route('shop.review.create', $shop) }}" class="review-link">レビューを書く</a>
-            </span>
-            @endif
         </div>
         <div class="shop-description">
             <p>{{ $shop->description }}</p>
         </div>
+        <!-- 予約情報がある場合にレビューを記述するリンクを表示 -->
+        @if(!empty($reservations))
+        <a href="{{ route('shop.review.create', $shop) }}" class="review-link">口コミを投稿する</a>
+        @endif
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        <details class="admin-table-comment-description">
+            <summary class="reviews-index">全ての口コミ情報</summary>
+            <ul class="review-section__container">
+                @foreach ($reservations as $reservation)
+                @if ($reservation->review)
+                <li class="review-section__container__group">
+                    <div class="review-section__container__group__inner review-area">
+                        @if (Auth::check())
+                        <div class="review-edit-delete__group">
+                            @if ($user->id === $reservation->user_id)
+                            <a href="{{ route('review.edit', [$shop, $reservation]) }}">口コミを編集 </a>
+                            @endif
+                            @if ($user->role_id === 1 || $user->id === $reservation->user_id)
+                            <form action="{{ route('review.delete', $reservation) }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" name="review_id">口コミを削除</button>
+                            </form>
+                            @endif
+                        </div>
+                        @endif
+                        <p class="name">{{ $reservation->user->name }}さん</p>
+                        <p class="star{{ $reservation->review->rating }}"></p>
+                        <p class="comment">{{ $reservation->review->comment }}</p>
+                    </div>
+                    <a href="#"></a>
+                </li>
+                @endif
+                @endforeach
+            </ul>
+        </details>
     </div>
 </div>
 
@@ -83,11 +118,10 @@
                 <div class="numer-of-guests form__tag">
                     <select name="number_of_guests" id="number_of_guests">
                         <option value="">予約人数を選択してください</option>
-                        @for ($count = 1; $count <= 20; $count++)
-                        <option value="{{ $count }}" {{ old('number_of_guests') == $count ? 'selected' : '' }}>
+                        @for ($count = 1; $count <= 20; $count++) <option value="{{ $count }}" {{ old('number_of_guests') == $count ? 'selected' : '' }}>
                             {{ $count }}人
-                        </option>
-                        @endfor
+                            </option>
+                            @endfor
                     </select>
                 </div>
                 <p class="reservation-error">

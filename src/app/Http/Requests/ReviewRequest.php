@@ -24,8 +24,9 @@ class ReviewRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|string|max:200',
+            'comment' => 'required|string|max:400',
             'rating' => 'required',
+            'image_url.*' => 'mimes:jpeg,jpg,png',
         ];
     }
 
@@ -34,8 +35,10 @@ class ReviewRequest extends FormRequest
         return [
             'comment.required' => 'コメントは必ず記入して下さい',
             'comment.string' => 'コメントは文字列型で入力して下さい',
-            'comment.max' => 'コメントは200文字以内でご記入下さい',
+            'comment.max' => 'コメントは400文字以内でご記入下さい',
             'rating.required' => '評価は必ず選択して下さい',
+            'image_url.mimes' => 'jpeg,png形式でアップロードして下さい',
+            'image_url.*.mimes' => 'jpeg,png形式でアップロードして下さい',
         ];
     }
 }

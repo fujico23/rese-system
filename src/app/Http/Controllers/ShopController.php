@@ -126,7 +126,12 @@ class ShopController extends Controller
         $courses = Course::where('shop_id', $shop->id)
             ->get();
 
-        return view('detail', compact('shop', 'reservations', 'reservationTimes', 'courses'));
+        $reservations = $shop->reservations()
+            ->with('review', 'user',)
+            ->where('status', '口コミ済み')
+            ->get();
+
+        return view('detail', compact('user', 'shop', 'reservations', 'reservationTimes', 'courses', 'reservations'));
     }
 
     //ハッシュタグ area検索
