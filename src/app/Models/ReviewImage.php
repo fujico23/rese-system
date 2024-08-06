@@ -9,4 +9,10 @@ class ReviewImage extends Model
 {
     use HasFactory;
     protected $fillable = ['review_id', 'image_url',];
+
+
+    public function review()
+    {
+        return $this->belongsTo(Review::class);
+    }
 }

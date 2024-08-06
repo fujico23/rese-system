@@ -21,6 +21,7 @@ class CreateShopsTable extends Migration
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->boolean('is_active')->default(false);
+            $table->unsignedInteger('views')->default(0);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

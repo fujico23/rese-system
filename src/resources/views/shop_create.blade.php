@@ -66,6 +66,12 @@
                 <button class="shop-create__container__table__btn-post" type="submit">作成</button>
             </form>
         </table>
+        <form method="post" action="" enctype="multipart/form-data">
+            @csrf
+            <label name="csvFile">csvファイル</label>
+            <input type="file" name="csvFile" class="" id="csvFile" />
+            <button class="btn btn-primary btn-lg">インポート</button>
+        </form>
     </div>
 </div>
 @endsection

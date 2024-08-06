@@ -26,10 +26,10 @@
                 </div>
                 <div class="card__details">
                     <h2 class="card__details__name">{{ $shop->shop_name }}</h2>
-                    <span class="card__details__area hashtag" onclick="window.location.href='{{ route('shops.filterByArea', ['areaName' => $shop->area->area_name]) }}'">
+                    <span class="card__details__area hashtag">
                         #{{ $shop->area->area_name }}
                     </span>
-                    <span class="card__details__genre hashtag" onclick="window.location.href='{{ route('shops.filterByGenre', ['genreName' => $shop->genre->genre_name]) }}'">
+                    <span class="card__details__genre hashtag">
                         #{{ $shop->genre->genre_name }}
                     </span>
                 </div>
@@ -79,15 +79,12 @@
             @endif
             <div class="review__form__group">
                 <h3>画像の追加</h3>
-                @error('image_url')
-                <p class="alert alert-danger"> {{ $message }}</p>
-                @enderror
-                @error('image_url.*')
+                @error('images.*')
                 <p class="alert alert-danger">{{ $message }}</p>
                 @enderror
                 <div class="sell-edit__container--form-tag form-input--style input-file">
-                    <label for="image_url" class="custom-file-label btn--border-pink--small">クリックして写真を追加</label>
-                    <input type="file" name="image_url[]" id="image_url" multiple style="display: none;">
+                    <label for="images" class="custom-file-label btn--border-pink--small">クリックして写真を追加</label>
+                    <input type="file" name="images[]" id="images" multiple style="display: none;">
                     <div class="preview" id="preview"></div>
                 </div>
             </div>
@@ -101,7 +98,7 @@
     let selectedFiles = [];
 
     // ファイルが選ばれた時のイベントリスナー
-    document.getElementById('image_url').addEventListener('change', function(event) {
+    document.getElementById('images').addEventListener('change', function(event) {
         let files = event.target.files;
         let preview = document.getElementById('preview');
 

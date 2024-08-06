@@ -75,6 +75,13 @@
                         <p class="name">{{ $reservation->user->name }}さん</p>
                         <p class="star{{ $reservation->review->rating }}"></p>
                         <p class="comment">{{ $reservation->review->comment }}</p>
+                        @if ($reservation->review->images->isNotEmpty())
+                        <div>
+                            @foreach ($reservation->review->images as $image)
+                            <img src="{{ $image->image_url }}" alt="Review Image" width="100">
+                            @endforeach
+                        </div>
+                        @endif
                     </div>
                     <a href="#"></a>
                 </li>

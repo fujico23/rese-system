@@ -53,6 +53,14 @@ body {
 
 .header__heading__right {
     margin-right: 10px;
+    display: flex;
+}
+.sort {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
 }
 
 .header__heading__right-user-name {

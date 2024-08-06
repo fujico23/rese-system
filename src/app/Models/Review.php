@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['reservation_id', 'rating', 'comment'];
 
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ReviewImage::class);
     }
 }

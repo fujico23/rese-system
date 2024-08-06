@@ -10,11 +10,12 @@ use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShopRequest;
+use Exception;
 use Illuminate\Support\Carbon;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //メール認証していないユーザーに対してモーダルウィンドウで促す為に
         $emailVerified = true;
@@ -25,14 +26,36 @@ class ShopController extends Controller
         $user = Auth::user();
         $areas = Area::all();
         $genres = Genre::all();
+        $sortOption = $request->input('sort', 'default');
 
-        // ログイン状態に関わらず初期化を実施
-        $shops = collect();
-        $reservedShopIds = [];
-        $favoriteShopIds = [];
-        $today = now();
+        // ソート処理
+        switch ($sortOption) {
+            case 'default':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->get();
+                break;
+            case 'random':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->inRandomOrder()
+                    ->get();
+                break;
+            case 'view_many':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->orderByRaw('views = 0, views DESC')
+                    ->get();
+                break;
+            case 'view_few':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->orderByRaw('views = 0, views ASC')
+                    ->get();
+                break;
+        }
 
-        //ログインしている場合、2つの処理を行う
+        //ログインしている場合、予約とお気に入りを取得
         if ($user) {
             // 予約している店舗のIDを取得後、予約が入っている店舗情報を取得
             //予約日時が過ぎた口コミ未送信のshopIdを取得
@@ -41,36 +64,13 @@ class ShopController extends Controller
                 ->whereDate('reservation_date', '<', now())
                 ->pluck('shop_id')
                 ->toArray();
-
-            $shopsReserved = Shop::with(['area', 'genre', 'images', 'reservations'])
-                ->whereIn('id', $reservedShopIds)
-                ->where('is_active', true)
-                ->get();
-
-            // 予約が入っていない店舗情報を取得
-            $shopsNotReserved = Shop::with(['area', 'genre', 'images'])
-                ->whereNotIn('id', $reservedShopIds)
-                ->where('is_active', true)
-                ->get();
-
-            // (1)予約が入っているお店と予約が入っていないお店を結合し、予約が入っているお店から表示させる
-            $shops = $shopsReserved->merge($shopsNotReserved);
-
-            // (2)お気に入りの店舗IDを取得
+            // 各店舗に予約済みか、お気に入りに登録されているかのフラグを設定
             $favoriteShopIds = $user->favorites->pluck('shop_id')->toArray();
-        } else {
-            // ログインしていない場合はす全ての店舗情報を取得
-            $shops = Shop::with(['area', 'genre', 'images'])
-                ->where('is_active', true)
-                ->get();
+            $shops->each(function ($shop) use ($reservedShopIds, $favoriteShopIds) {
+                $shop->isReserved = in_array($shop->id, $reservedShopIds);
+                $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
+            });
         }
-
-        // 各店舗に予約済みか、お気に入りに登録されているかのフラグを設定
-        $shops->each(function ($shop) use ($reservedShopIds, $favoriteShopIds) {
-            $shop->isReserved = in_array($shop->id, $reservedShopIds);
-            $shop->isFavorited = in_array($shop->id, $favoriteShopIds);
-        });
-
         return view('index', compact('emailVerified', 'areas', 'genres', 'shops'));
     }
 
@@ -100,6 +100,7 @@ class ShopController extends Controller
         $reservations = [];
         $nowDate = Carbon::now()->toDateString();
         $twoHoursLater = Carbon::now()->addHours(2)->toTimeString();
+        $shop->increment('views');
         // ユーザーがログインしている場合の処理
         if ($user) {
             $reservations = Reservation::where('user_id', $user->id)
@@ -219,5 +220,50 @@ class ShopController extends Controller
     {
         Shop::create($request->validated());
         return redirect()->route('shop.create')->with('success', '新しい店舗が追加されました！');
+    }
+
+    public function csvImport(Request $request)
+    {
+        if ($request->hasFile('csvFile')) {
+            $file = $request->file('csvFile');
+            $path = $file->getRealPath();
+
+            $fp = fopen($path, 'r');
+
+            fgetcsv($fp);
+
+            while (($csvData = fgetcsv($fp)) !== FALSE) {
+                $this->InsertCsvData($csvData);
+            }
+            fclose($fp);
+        } else {
+            throw new Exception('CSVファイルの取得に失敗しました');
+        }
+    }
+
+    public function InsertCsvData($csvData)
+    {
+        /* $shop = Shop::create([
+            'area_id' => $csvData[0],
+            'genre_id' => $csvData[1],
+            'shop_name' => $csvData[2],
+            'description' => $csvData[3],
+            'is_active' => $csvData[4],
+        ]);
+        */
+        $shop = new Shop;
+        $shop->area_id = $csvData[0];
+        $shop->genre_id = $csvData[1];
+        $shop->shop_name = $csvData[2];
+        $shop->description = $csvData[3];
+        $shop->is_active = $csvData[4];
+
+        $shop->save();
+
+        /* $image = new Image;
+
+        $image->shop_id = $shop->id;
+        $image->image_url = $csvData[5];
+        */
     }
 }

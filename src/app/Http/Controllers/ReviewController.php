@@ -48,17 +48,17 @@ class ReviewController extends Controller
             $review = Review::create($reviewData);
 
             // 画像のアップロードとReviewImagesテーブルへの保存
-            if ($request->hasFile('image_url')) {
-                foreach ($request->file('image_url') as $file) {
-                    $fileName = $file->getClientOriginalName();
-                    $path = 'public/review/' . $userId . '/' . $fileName;
-                    Storage::disk('local')->put($path, (string) $file);
-                    $imageUrl = Storage::disk('local')->url($path);
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $file) {
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = uniqid() . '.' . $extension;
+                    $path = $file->storeAs('review_images/' . $review->id, $fileName, 'public');
+                    $image_url = Storage::url($path);
 
                     // ReviewImageテーブルに保存
                     ReviewImage::create([
                         'review_id' => $review->id,
-                        'image_url' => $imageUrl,
+                        'image_url' => $image_url,
                     ]);
                 }
             }
@@ -89,15 +89,33 @@ class ReviewController extends Controller
 
     public function edit(Shop $shop, Reservation $reservation)
     {
-        $review = Review::where('reservation_id', $reservation->id)->first();
+        $review = Review::with('images')
+            ->where('reservation_id', $reservation->id)
+            ->first();
         return view('review_edit', compact('shop', 'review'));
     }
-    public function update(Request $request, Shop $shop, Review $review)
+    public function update(ReviewRequest $request, Shop $shop, Review $review)
     {
+        $request->validated();
         $review->update([
             'comment' => $request->input('comment'),
             'rating' => $request->input('rating'),
         ]);
+
+        // 画像のアップロードとReviewImagesテーブルへの保存
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $fileName = uniqid() . '.' . $extension;
+                $path = $file->storeAs('review_images/' . $review->id, $fileName, 'public');
+                $image_url = Storage::url($path);
+
+                ReviewImage::create([
+                    'review_id' => $review->id,
+                    'image_url' => $image_url,
+                ]);
+            }
+        }
         return redirect()->route('shop.detail', compact('shop'))->with('success', 'コメントが編集されました');
     }
 }

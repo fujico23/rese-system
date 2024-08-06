@@ -26,7 +26,8 @@ class ReviewRequest extends FormRequest
         return [
             'comment' => 'required|string|max:400',
             'rating' => 'required',
-            'image_url.*' => 'mimes:jpeg,jpg,png',
+            'images' => 'nullable|array', // imagesが配列かどうか確認
+            'images.*' => 'image|mimes:jpg,jpeg,png,PNG|max:4048', // 各ファイルが画像であるか確認
         ];
     }
 
@@ -37,8 +38,8 @@ class ReviewRequest extends FormRequest
             'comment.string' => 'コメントは文字列型で入力して下さい',
             'comment.max' => 'コメントは400文字以内でご記入下さい',
             'rating.required' => '評価は必ず選択して下さい',
-            'image_url.mimes' => 'jpeg,png形式でアップロードして下さい',
-            'image_url.*.mimes' => 'jpeg,png形式でアップロードして下さい',
+            'images.*.mimes' => 'jpeg,png形式でアップロードして下さい',
+            'images.*.max' => '各画像のサイズは4MB以下にして下さい', // maxエラーのメッセージを追加
         ];
     }
 }

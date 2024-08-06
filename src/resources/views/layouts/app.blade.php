@@ -32,19 +32,23 @@
                     @include('menu.menu4')
                     @endif
                     <h1 class="header__heading__left-logo2"><a href="{{ route('index') }}">Rese</a></h1>
-
                 </div>
                 <div class="header__heading__right">
                     @if(Route::is('index'))
-                    @if (Auth::check())
-                    <p class="header__heading__right-user-name">{{ Auth::user()->name }} さん</p>
-                    @else
-                    <p class="header__heading__right-user-name">ゲストさん</p>
-                    @endif
+                    <div class="sort">
+                        <form action="{{ route('index') }}" method="get">
+                            @csrf
+                            <select name="sort" onchange="this.form.submit()">
+                                <option value="default" {{ request('sort') == 'default' ? 'selected' : '' }}>並び替え：評価高/低</option>
+                                <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
+                                <option value="view_many" {{ request('sort') == 'view_many' ? 'selected' : '' }}>評価が高い順</option>
+                                <option value="view_few" {{ request('sort') == 'view_few' ? 'selected' : '' }}>評価が低い順</option>
+                            </select>
+                        </form>
+                    </div>
                     @endif
                 </div>
             </div>
-
             @if(Route::is('index','search'))
             <div class="header__search">
                 <form class="header__search-form" action="/search" method="get">
@@ -86,7 +90,13 @@
             @endif
             @yield('link')
         </header>
-
+        @if(Route::is('index','search'))
+        @if (Auth::check())
+        <p class="header__heading__right-user-name">{{ Auth::user()->name }} さん</p>
+        @else
+        <p class="header__heading__right-user-name">ゲストさん</p>
+        @endif
+        @endif
         <main class="main">
             @yield('content')
         </main>
