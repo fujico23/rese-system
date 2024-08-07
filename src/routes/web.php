@@ -119,6 +119,7 @@ Route::middleware('role')->group(function () {
         Route::get('admin/all/mail', [AdminMailController::class, 'createAllMail'])->name('create.all.mail');
         Route::post('admin/all/mail', [AdminMailController::class, 'sendAllMail'])->name('admin.all.users.mail');
         Route::post('admin/users/{user}/coupon', [AdminMailController::class, 'sendCoupon'])->name('send.coupon');
+        Route::post('/import-csv', [ShopController::class, 'importCsv'])->name('import.csv');
     });
 });
 

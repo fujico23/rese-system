@@ -7,11 +7,15 @@ use App\Models\Genre;
 use App\Models\Shop;
 use App\Models\Reservation;
 use App\Models\Course;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShopRequest;
 use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ShopController extends Controller
 {
@@ -127,12 +131,12 @@ class ShopController extends Controller
         $courses = Course::where('shop_id', $shop->id)
             ->get();
 
-        $reservations = $shop->reservations()
+        $reservationReviews = $shop->reservations()
             ->with('review', 'user',)
             ->where('status', '口コミ済み')
             ->get();
 
-        return view('detail', compact('user', 'shop', 'reservations', 'reservationTimes', 'courses', 'reservations'));
+        return view('detail', compact('user', 'shop', 'reservations', 'reservationTimes', 'courses', 'reservationReviews'));
     }
 
     //ハッシュタグ area検索
@@ -222,48 +226,84 @@ class ShopController extends Controller
         return redirect()->route('shop.create')->with('success', '新しい店舗が追加されました！');
     }
 
-    public function csvImport(Request $request)
+    public function importCsv(Request $request)
     {
-        if ($request->hasFile('csvFile')) {
-            $file = $request->file('csvFile');
+        $errorMessages = [];  // エラーメッセージを収集する配列
+
+        if ($request->hasFile('csv_file')) {
+            $file = $request->file('csv_file');
             $path = $file->getRealPath();
 
             $fp = fopen($path, 'r');
 
+            // ヘッダーをスキップ
             fgetcsv($fp);
 
-            while (($csvData = fgetcsv($fp)) !== FALSE) {
+            while (($csvData = fgetcsv($fp, 1000, ",", '"', "\\")) !== FALSE) {
+                if (count($csvData) < 7) {  // カラム数を確認（7つのカラムが必要）
+                    $errorMessages[] = 'CSVデータに不足があります: ' . implode(',', $csvData) . ' - カラム数: ' . count($csvData);
+                    continue;
+                }
+
+                // バリデーションルールの定義
+                $validator = Validator::make([
+                    'area_id' => $csvData[0],
+                    'genre_id' => $csvData[1],
+                    'shop_name' => $csvData[2],
+                    'description' => $csvData[3],
+                    'image_url' => $csvData[6],
+                ], [
+                    'area_id' => ['required', Rule::in([1, 2, 3])],
+                    'genre_id' => ['required', Rule::in([1, 2, 3, 4, 5])],
+                    'shop_name' => 'required|string|max:50',
+                    'description' => 'required|string|max:400',
+                    'image_url' => ['required', 'url', 'regex:/\.(jpg|jpeg|png)$/i'],
+                ], [
+                    'area_id.in' => 'area_idは1～3を設定して下さい',
+                    'genre_id.in' => 'genre_idは1～5を設定して下さい',
+                    'shop_name.max' => 'shop_nameは50文字以下にして下さい',
+                    'description.max' => 'descriptionは400文字以下にして下さい',
+                    'image_url.regex' => 'image_urlはjpg,png形式でアップロードして下さい',
+                ]);
+
+                // バリデーションが失敗した場合
+                if ($validator->fails()) {
+                    $errorMessages[] = '【CSVファイル設定エラー】' . implode(',', $csvData) . ' 【詳細】 ' . implode(', ', $validator->errors()->all());
+                    continue;
+                }
+
+                // データベースに挿入
                 $this->InsertCsvData($csvData);
             }
             fclose($fp);
         } else {
             throw new Exception('CSVファイルの取得に失敗しました');
         }
+
+        // エラーメッセージがある場合は、セッションに保存してリダイレクト
+        if (!empty($errorMessages)) {
+            return redirect()->route('shop.create')->withErrors($errorMessages);
+        }
+
+        return redirect()->route('shop.create')->with('success', '新しい店舗が追加されました！');
     }
 
     public function InsertCsvData($csvData)
     {
-        /* $shop = Shop::create([
-            'area_id' => $csvData[0],
-            'genre_id' => $csvData[1],
-            'shop_name' => $csvData[2],
-            'description' => $csvData[3],
-            'is_active' => $csvData[4],
-        ]);
-        */
         $shop = new Shop;
         $shop->area_id = $csvData[0];
         $shop->genre_id = $csvData[1];
         $shop->shop_name = $csvData[2];
         $shop->description = $csvData[3];
         $shop->is_active = $csvData[4];
-
+        $shop->views = $csvData[5];
         $shop->save();
 
-        /* $image = new Image;
-
-        $image->shop_id = $shop->id;
-        $image->image_url = $csvData[5];
-        */
+        if (!empty($csvData[6])) {
+            $image = new Image;
+            $image->shop_id = $shop->id;
+            $image->image_url = $csvData[6];
+            $image->save();
+        }
     }
 }

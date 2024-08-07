@@ -52,13 +52,16 @@
                                 @endforeach
                             </select>
                         </td>
+                        @error('genre_id')
+                        <p class="alert alert-danger">{{ $message }}</p>
+                        @enderror
                     </tr>
                     <tr class="shop-create__container__table-row">
-                        <th class="shop-create__container__table-row__header">店舗説明</th>
+                        <th class="shop-create__container__table-row__header">店舗説明<span>必須</span></th>
                         <td class="shop-create__container__table-row__detail">
                             <input class="shop-create__container__table-row__detail-input" type="textarea" name="description">
                         </td>
-                        @error('genre_id')
+                        @error('description')
                         <p class="alert alert-danger">{{ $message }}</p>
                         @enderror
                     </tr>
@@ -66,12 +69,26 @@
                 <button class="shop-create__container__table__btn-post" type="submit">作成</button>
             </form>
         </table>
-        <form method="post" action="" enctype="multipart/form-data">
-            @csrf
-            <label name="csvFile">csvファイル</label>
-            <input type="file" name="csvFile" class="" id="csvFile" />
-            <button class="btn btn-primary btn-lg">インポート</button>
-        </form>
+    </div>
+    <div class="csv">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <div class="csv__form">
+            <form method="post" action="{{ route('import.csv') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="csv__form__inner">
+                    <input type="file" name="csv_file" class="" id="csvFile" />
+                    <button class="csv__form__btn">CSV Import</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

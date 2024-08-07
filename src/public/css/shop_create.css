@@ -1,6 +1,6 @@
 /* 店舗作成画面全体のスタイリング */
 .shop-create {
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
@@ -8,7 +8,7 @@
 
 /* ヘッダーのスタイリング */
 .shop-create__header {
-    background-color: #007BFF;
+    background-color: #007bff;
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -17,7 +17,8 @@
 }
 
 /* コンテナのスタイリング */
-.shop-create__container {
+.shop-create__container,
+.csv {
     width: 80%;
     margin: 0 auto;
     background-color: #ffffff;
@@ -29,22 +30,23 @@
 .shop-create__container__table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 10px;
 }
 
 .shop-create__container__table-row__header {
     background-color: #acadad;
-    color: #FFF;
+    color: #fff;
     padding: 15px;
     border-bottom: 2px solid #7f7f80;
     text-align: left;
 }
 
 .shop-create__container__table-row__header span {
-    color: #FFECEA;
+    color: #ffecea;
     margin-left: 5px;
     font-size: 90%;
     padding: 5px 8px;
-    background-color: #EA565A;
+    background-color: #ea565a;
     border-radius: 10px;
 }
 
@@ -71,9 +73,21 @@
     cursor: pointer;
 }
 
+.csv,
+.csv__form {
+    margin-top: 10px;
+}
+
+.csv__form__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* ボタンのスタイリング */
-.shop-create__container__table__btn-post {
-    background-color: #007BFF;
+.shop-create__container__table__btn-post,
+.csv__form__btn {
+    background-color: #007bff;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -85,11 +99,20 @@
     float: right;
 }
 
-.shop-create__container__table__btn-post:hover {
+.csv__form__btn {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.shop-create__container__table__btn-post:hover,
+.csv__form__btn:hover {
     background-color: #0056b3;
 }
 
-
+.alert-danger {
+    word-wrap: break-word; /* 長い単語を自動で改行 */
+    white-space: pre-wrap; /* 改行を保持 */
+}
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
@@ -112,5 +135,10 @@
     .shop-create__container__table-row__detail {
         padding: 8px;
     }
-
+    .csv__form__inner {
+        flex-direction: column;
+    }
+    .csv__form__btn {
+        margin-top: 10px;
+    }
 }

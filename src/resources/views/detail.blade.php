@@ -39,8 +39,10 @@
             <p>{{ $shop->description }}</p>
         </div>
         <!-- 予約情報がある場合にレビューを記述するリンクを表示 -->
+        @if ($user->role_id === 3)
         @if(!empty($reservations))
         <a href="{{ route('shop.review.create', $shop) }}" class="review-link">口コミを投稿する</a>
+        @endif
         @endif
         @if(session('success'))
         <div class="alert alert-success">
@@ -54,7 +56,7 @@
         <details class="admin-table-comment-description">
             <summary class="reviews-index">全ての口コミ情報</summary>
             <ul class="review-section__container">
-                @foreach ($reservations as $reservation)
+                @foreach ($reservationReviews as $reservation)
                 @if ($reservation->review)
                 <li class="review-section__container__group">
                     <div class="review-section__container__group__inner review-area">

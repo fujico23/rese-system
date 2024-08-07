@@ -27,7 +27,7 @@ class ShopRequest extends FormRequest
             'shop_name' => 'required|string|max:50',
             'area_id' => 'required',
             'genre_id' => 'required',
-            'description' => 'nullable'
+            'description' => 'required|max:400'
         ];
     }
 
@@ -38,7 +38,9 @@ class ShopRequest extends FormRequest
             'shop_name.string' => '店舗名は文字列型で入力して下さい',
             'shop_name.max' => '店舗名が長すぎます',
             'area_id.required' => 'エリアは必ず選択して下さい',
-            'genre_id.required' => 'ジャンルは必ず選択して下さい'
+            'genre_id.required' => 'ジャンルは必ず選択して下さい',
+            'description.required' => '店舗説明は必ず記入して下さい',
+            'description.max' => '店舗説明が長すぎます',
         ];
     }
 }
