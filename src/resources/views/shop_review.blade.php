@@ -56,15 +56,15 @@
                 @enderror
                 <div class="review__form__group-evaluation">
                     <input id="star1" type="radio" name="rating" value="5" />
-                    <label for="star1"><span class="text">5</span>★</label>
+                    <label for="star1"><span class="text"></span>★</label>
                     <input id="star2" type="radio" name="rating" value="4" />
-                    <label for="star2"><span class="text">4</span>★</label>
+                    <label for="star2"><span class="text"></span>★</label>
                     <input id="star3" type="radio" name="rating" value="3" />
-                    <label for="star3"><span class="text">3</span>★</label>
+                    <label for="star3"><span class="text"></span>★</label>
                     <input id="star4" type="radio" name="rating" value="2" />
-                    <label for="star4"><span class="text">2</span>★</label>
+                    <label for="star4"><span class="text"></span>★</label>
                     <input id="star5" type="radio" name="rating" value="1" />
-                    <label for="star5"><span class="text">1</span>★</label>
+                    <label for="star5"><span class="text"></span>★</label>
                 </div>
             </div>
             <div class="review__form__group-textarea">

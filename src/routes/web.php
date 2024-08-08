@@ -70,7 +70,7 @@ Route::middleware('role')->group(function () {
         Route::post('/webhook/stripe', [StripeController::class, 'handleWebhook'])->name('stripe.webhook');
 
         //レビュー機能
-        Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create');
+        Route::get('/detail/{shop}/review', [ReviewController::class, 'create'])->name('shop.review.create')->middleware('can.review');
         Route::post('/detail/{shop}/review/store', [ReviewController::class, 'store'])->name('shop.review.store');
         Route::get('detail/review/done', [ReviewController::class, 'done']);
         Route::delete('{reservation}/delete', [ReviewController::class, 'destroy'])->name('review.delete');

@@ -39,10 +39,8 @@
             <p>{{ $shop->description }}</p>
         </div>
         <!-- 予約情報がある場合にレビューを記述するリンクを表示 -->
-        @if ($user->role_id === 3)
-        @if(!empty($reservations))
+        @if (Auth::check() && Auth::user()->role_id === 3)
         <a href="{{ route('shop.review.create', $shop) }}" class="review-link">口コミを投稿する</a>
-        @endif
         @endif
         @if(session('success'))
         <div class="alert alert-success">

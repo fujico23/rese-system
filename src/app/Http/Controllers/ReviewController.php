@@ -15,17 +15,6 @@ class ReviewController extends Controller
 {
     public function create(Shop $shop)
     {
-        $userId = Auth::id();
-
-        // 同一ユーザーが同一のshopにレビューを投稿済みか確認
-        $existingReview = Review::whereHas('reservation', function ($query) use ($userId, $shop) {
-            $query->where('user_id', $userId)
-                ->where('shop_id', $shop->id);
-        })->first();
-
-        if ($existingReview) {
-            return back()->with('error', 'この店舗にはすでにレビューを投稿済みです');
-        }
         return view('shop_review', compact('shop'));
     }
 
@@ -83,7 +72,7 @@ class ReviewController extends Controller
 
     public function destroy(Reservation $reservation)
     {
-        $reservation->review()->delete();
+        $reservation->delete();
         return redirect()->back()->with('success', 'コメントが削除されました');
     }
 
