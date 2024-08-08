@@ -208,10 +208,14 @@
 
 #### CSV ファイルの記述方法
 
-- [Google スプレッドシート](https://docs.google.com/spreadsheets/d/1vAhH-4A8FhBXRyyACtWOd465NaMvdYcw5LArtchS9us/edit#gid=265853827)を開く
-- 以下の画像の手順で CSV ファイルを生成する
-  ![無題test](https://github.com/user-attachments/assets/b6273deb-f50c-429c-a4c0-e9251d64cff6)
-- 管理者ユーザーでログインし、ハンバーガーメニューより「Shop Create」リンクをクリック※参照：[管理者ユーザー(role_id:1)のパスワードとメールアドレス](#ⅰ-userstableseeder-の初期ユーザーデーター)
+- ⅰ．[Google スプレッドシート](https://docs.google.com/spreadsheets/d/1vAhH-4A8FhBXRyyACtWOd465NaMvdYcw5LArtchS9us/edit#gid=265853827)を開く
+- ⅱ．以下の画像の手順で CSV ファイルを生成する
+  ![Frame 3手順](https://github.com/user-attachments/assets/dc0669d9-9094-4c58-80a8-961b14029ae2)
+  - a．「CSV テスト」はバリデーションに引っかからず店舗データを取得できるファイル
+    ![Frame 2正規テスト](https://github.com/user-attachments/assets/ca846012-9ed0-41c9-9603-f09c26d1c14d)
+  - b．「CSV テストバリデーション確認用」はバリデーションを確認するためのファイル
+    ![Frame 1バリデーション](https://github.com/user-attachments/assets/b1841d63-abc2-49f5-a806-e6595734e7fc)
+- ⅲ．管理者ユーザーでログインし、ハンバーガーメニューより「Shop Create」リンクをクリック※参照：[管理者ユーザー(role_id:1)のパスワードとメールアドレス](#ⅰ-userstableseeder-の初期ユーザーデーター)
   ![Frame 1csvImport](https://github.com/user-attachments/assets/760bf0c6-315e-40f3-9c72-1fb8af077064)
 
 ##### < その他の機能 >

@@ -252,18 +252,33 @@ class ShopController extends Controller
                     'shop_name' => $csvData[2],
                     'description' => $csvData[3],
                     'image_url' => $csvData[6],
+                    'course_name' => $csvData[7],
+                    'course_description' => $csvData[8],
+                    'price' => $csvData[9],
                 ], [
                     'area_id' => ['required', Rule::in([1, 2, 3])],
                     'genre_id' => ['required', Rule::in([1, 2, 3, 4, 5])],
                     'shop_name' => 'required|string|max:50',
                     'description' => 'required|string|max:400',
                     'image_url' => ['required', 'url', 'regex:/\.(jpg|jpeg|png)$/i'],
+                    'course_name' => 'required|string|max:50',
+                    'course_description' => 'string|max:400',
+                    'price' => 'required|integer'
                 ], [
-                    'area_id.in' => 'area_idは1～3を設定して下さい',
-                    'genre_id.in' => 'genre_idは1～5を設定して下さい',
-                    'shop_name.max' => 'shop_nameは50文字以下にして下さい',
-                    'description.max' => 'descriptionは400文字以下にして下さい',
-                    'image_url.regex' => 'image_urlはjpg,png形式でアップロードして下さい',
+                    'area_id.required' => 'area_id(エリア)は必須入力です',
+                    'area_id.in' => 'area_id(エリア)は1～3を設定して下さい',
+                    'genre_id.required' => 'genre_id(ジャンル)は1～5を設定して下さい',
+                    'genre_id.in' => 'genre_id(ジャンル)は必須入力です',
+                    'shop_name.required' => 'shop_name(店舗名)は必須入力です',
+                    'shop_name.max' => 'shop_name(店舗名)は50文字以下にして下さい',
+                    'description.required' => 'description(店舗概要)は必須入力です',
+                    'description.max' => 'description(店舗概要)は400文字以下にして下さい',
+                    'image_url.required' => 'image_url(画像URL)は必須入力です',
+                    'image_url.regex' => 'image_url(画像URL)はjpg,png形式でアップロードして下さい',
+                    'course_name.required' => 'course_name(コース名)は必須入力です',
+                    'course_name.max' => 'course_name(コース名)は50文字以下にして下さい',
+                    'course_description.max' => 'course_description(コース概要)は400文字以下にして下さい',
+                    'price.required' => 'price(価格)は必須入力です',
                 ]);
 
                 // バリデーションが失敗した場合
@@ -305,5 +320,11 @@ class ShopController extends Controller
             $image->image_url = $csvData[6];
             $image->save();
         }
+        $course = new Course;
+        $course->shop_id = $shop->id;
+        $course->course_name = $csvData[7];
+        $course->course_description = $csvData[8];
+        $course->price = $csvData[9];
+        $course->save();
     }
 }

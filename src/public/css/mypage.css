@@ -4,239 +4,237 @@
 }
 
 .mypage__container {
-  display: flex;
-  max-width: 1200px;
-  flex-direction: row;
-  gap: 40px;
+    display: flex;
+    max-width: 1200px;
+    flex-direction: row;
+    gap: 40px;
 }
 
 .reservation,
 .favorite-shop {
-  flex: 4;
-  margin-right: 20px;
+    flex: 4;
+    margin-right: 20px;
 }
 .favorite-shop {
-  flex: 6;
-  width: 90%;
-  margin-right: 0;
-  margin-left: 20px;
+    flex: 6;
+    width: 90%;
+    margin-right: 0;
+    margin-left: 20px;
 }
 
 .reservation__confirm,
 .favorite-shop__heading {
-  margin: 20px 0px 20px 0px;
-  font-size: 24px;
+    margin: 20px 0px 20px 0px;
+    font-size: 24px;
 }
 
 /* 予約フォームのスタイル */
 /*予約フォームのヘッダースタイル*/
 .reservation__container {
-  background-color: #007bff;
-  color: #fff;
-  padding: 30px 30px 30px 30px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #007bff;
+    color: #fff;
+    padding: 30px 30px 30px 30px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .reservation__container__heading {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .reservation__container__heading__clock-img {
-  display: flex;
-  align-items: center;
-  width: 20%;
+    display: flex;
+    align-items: center;
+    width: 20%;
 }
 
 .reservation__container__heading__number {
-  width: 80%;
-  font-size: 18px;
+    width: 80%;
+    font-size: 18px;
 }
 
 .reservation__container__heading__form-delete {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .reservation__container__heading__form__inner button {
-  display: flex;
-  align-items: center;
-  width: 10%;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    width: 10%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    align-items: center;
 }
 
 /*予約フォームのテーブルスタイル*/
 .select-field,
 .input-field {
-  color: #fff; 
-  transition: color 0.3s ease;
-  border-radius: 5px;
-  padding: 3px;
+    color: #fff;
+    transition: color 0.3s ease;
+    border-radius: 5px;
+    padding: 3px;
 }
 
 .reservation__container__table__row__description {
-  padding: 5px 0 5px 30px;
+    padding: 5px 0 5px 30px;
 }
 
 /* 予約フォーム　編集ボタンのスタイル */
 .reservation__container__bottom {
-  display: flex;
-  justify-content: right;
+    display: flex;
+    justify-content: right;
 }
 
 .reservation__container__bottom-edit__btn,
 .reservation__container__bottom-submit__btn {
-  padding: 5px 10px;
-  margin-left: 10px;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  outline: none;
-  text-align: center;
-  background-color: #E8AA27;
-  color: rgb(75, 75, 75);
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    outline: none;
+    text-align: center;
+    background-color: #e8aa27;
+    color: rgb(75, 75, 75);
 }
 
 .reservation__container__bottom-edit__btn:hover,
 .reservation__container__bottom-submit__btn:hover {
-  background-color: #816018;
-  color: #ccc;
-  transform: scale(1.05);
-  transition: transform 0.5s ease;
+    background-color: #816018;
+    color: #ccc;
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
 }
 
 .reservation__container__bottom-edit__btn:disabled,
 .reservation__container__bottom-submit__btn:disabled {
-  background-color: #ccc;
-  color: #999;
-  cursor: default;
-  opacity: 1;
-  transform: none;
-  transition: none;
+    background-color: #ccc;
+    color: #999;
+    cursor: default;
+    opacity: 1;
+    transform: none;
+    transition: none;
 }
-
-
 
 /* お気に入りのお店 */
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .card {
-  flex-basis: calc(50% - 10px);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  overflow: hidden;
-  background-color: #fff;
+    flex-basis: calc(50% - 10px);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    overflow: hidden;
+    background-color: #fff;
 }
 
 .shop__img img {
     width: 100%;
     height: auto;
-  }
+    max-height: 150px;
+}
 
-  .shop__details {
+.shop__details {
     padding: 20px 20px 5px 20px;
-  }
+}
 
-  .shop-name {
+.shop-name {
     margin: 0 0 10px;
     font-size: 1.2em;
-  }
+}
 
-  .hashtag {
+.hashtag {
     font-size: 14px;
     margin-right: 5px;
-  }
+}
 
 .card .btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-decoration: none;
 }
 
 .card-footer-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 30%;
-  max-width: 120px;
-  text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 30%;
+    max-width: 120px;
+    text-decoration: none;
 }
 
 .card-footer-btn:hover {
-  opacity: 0.7;
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
-  .card-footer {
+.card-footer {
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+}
 
-  .heart {
+.heart {
     font-size: 2em;
     color: red;
     cursor: pointer;
-  }
+}
 
 /*　レスポンシブデザイン タブレット表示　*/
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-  .mypage__container {
-    display: flex;
-    flex-direction: column;
+    .mypage__container {
+        display: flex;
+        flex-direction: column;
     }
 
-  .reservation,
-  .favorite-shop {
-    width: 100%;
-    margin: 0 0 20px 0;
+    .reservation,
+    .favorite-shop {
+        width: 100%;
+        margin: 0 0 20px 0;
     }
-  .card {
-    flex-basis: calc(50% - 10px);
+    .card {
+        flex-basis: calc(50% - 10px);
     }
 }
 
 @media (max-width: 767px) {
-  .mypage__container {
-    display: flex;
-    flex-direction: column;
+    .mypage__container {
+        display: flex;
+        flex-direction: column;
     }
 
-  .card-container {
-    display: block;
-  }
+    .card-container {
+        display: block;
+    }
 
-  .card {
-    width: 100%;
-    flex-basis: auto;
-  }
+    .card {
+        width: 100%;
+        flex-basis: auto;
+    }
 }
-
