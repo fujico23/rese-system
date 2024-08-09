@@ -1,116 +1,115 @@
 .review-section {
-  background: #fff;
-  padding: 3rem 0;
- }
+    background: #fff;
+    padding: 3rem 0;
+}
 
 .review-section__header {
-  text-align: center;
-  letter-spacing: 0.5rem;
- }
+    text-align: center;
+    letter-spacing: 0.5rem;
+}
 
 .review-section--return {
-  max-width: 1000px;
-  margin: 2rem auto;
- }
+    max-width: 1000px;
+    margin: 2rem auto;
+}
 
 .review-section--return__inner {
-  display: inline-block;
-  margin-left: 20px;
-  padding: 2px 5px;
-  text-decoration: none;
-  background-color: black;
-  color: #fff;
-  font-weight: bold;
- }
+    display: inline-block;
+    margin-left: 20px;
+    padding: 2px 5px;
+    text-decoration: none;
+    background-color: black;
+    color: #fff;
+    font-weight: bold;
+}
 
 .review-section--return__inner:hover {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 .review-section__container {
-  max-width: 1000px;
-  list-style-type: none;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
- }
+    max-width: 1000px;
+    list-style-type: none;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
 .review-section__container__group {
-  border-top: 1px solid #ccc;
-  padding: 1rem 0;
- }
+    border-top: 1px solid #ccc;
+    padding: 1rem 0;
+}
 .review-section__container__group:last-child {
-  border-bottom: 1px solid #ccc;
- }
+    border-bottom: 1px solid #ccc;
+}
 
 .review-section__container__group__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
- }
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
 
 .review-section__container__group__inner p {
-  margin: 0;
- }
+    margin: 0;
+}
 
 .review-section__container__group__inner .name,
 .review-section__container__group__inner .date,
 .review-section a {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 .review-section__container__group__inner .star1:before {
-  content: '★☆☆☆☆';
-  font-size: 1.2rem;
-  background: linear-gradient(to right, #ffcc00 20%, #d9d9d9 80%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    content: "★☆☆☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ffcc00 20%, #d9d9d9 80%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .review-section__container__group__inner .star2:before {
-  content: '★★☆☆☆';
-  font-size: 1.2rem;
-  background: linear-gradient(to right, #ffcc00 40%, #d9d9d9 60%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    content: "★★☆☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ffcc00 40%, #d9d9d9 60%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .review-section__container__group__inner .star3:before {
-  content: '★★★☆☆';
-  font-size: 1.2rem;
-  background: linear-gradient(to right, #ffcc00 60%, #d9d9d9 40%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    content: "★★★☆☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ffcc00 60%, #d9d9d9 40%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .review-section__container__group__inner .star4:before {
-  content: '★★★★☆';
-  font-size: 1.2rem;
-  background: linear-gradient(to right, #ffcc00 80%, #d9d9d9 20%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    content: "★★★★☆";
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ffcc00 80%, #d9d9d9 20%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .review-section__container__group__inner .star5:before {
-  content: '★★★★★'; /* すべての星を黄色で表示 */
-  font-size: 1.2rem;
-  background: linear-gradient(to right, #ffcc00, #ffcc00);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+    content: "★★★★★"; /* すべての星を黄色で表示 */
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ffcc00, #ffcc00);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 .review-section__container__group__inner .comment {
-  text-align: justify;
-  position: relative;
-  word-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
- }
+    text-align: justify;
+    position: relative;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
 
- .review-section a {
-  text-align: center;
- }
-
+.review-section a {
+    text-align: center;
+}

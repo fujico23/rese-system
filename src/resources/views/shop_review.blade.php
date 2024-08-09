@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-<form class="review__form" action="{{ route('shop.review.store', $shop) }}" method="post" enctype="multipart/form-data">
-    @csrf
+<div class="content">
+
     <div class="review__content">
         <div class="shop-card__group">
             <h2 class="review__heading">今回のご利用はいかがでしたか？</h2>
@@ -48,52 +48,60 @@
             </div>
         </div>
         <div class="review">
-            @csrf
-            <div class="review__form__group">
-                <h3>体験を評価してください</h3>
-                @error('rating')
-                <p class="alert alert-danger">{{ $message }}</p>
-                @enderror
-                <div class="review__form__group-evaluation">
-                    <input id="star1" type="radio" name="rating" value="5" />
-                    <label for="star1"><span class="text"></span>★</label>
-                    <input id="star2" type="radio" name="rating" value="4" />
-                    <label for="star2"><span class="text"></span>★</label>
-                    <input id="star3" type="radio" name="rating" value="3" />
-                    <label for="star3"><span class="text"></span>★</label>
-                    <input id="star4" type="radio" name="rating" value="2" />
-                    <label for="star4"><span class="text"></span>★</label>
-                    <input id="star5" type="radio" name="rating" value="1" />
-                    <label for="star5"><span class="text"></span>★</label>
+            <form id="myForm" class="review__form" action="{{ route('shop.review.store', $shop) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="review__form__group">
+                    <h3>体験を評価してください</h3>
+                    @error('rating')
+                    <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                    <div class="review__form__group-evaluation">
+                        <input id="star1" type="radio" name="rating" value="5" />
+                        <label for="star1"><span class="text"></span>★</label>
+                        <input id="star2" type="radio" name="rating" value="4" />
+                        <label for="star2"><span class="text"></span>★</label>
+                        <input id="star3" type="radio" name="rating" value="3" />
+                        <label for="star3"><span class="text"></span>★</label>
+                        <input id="star4" type="radio" name="rating" value="2" />
+                        <label for="star4"><span class="text"></span>★</label>
+                        <input id="star5" type="radio" name="rating" value="1" />
+                        <label for="star5"><span class="text"></span>★</label>
+                    </div>
                 </div>
-            </div>
-            <div class="review__form__group-textarea">
-                <h3 class="review__form__group__label">口コミを投稿</h3>
-                @error('comment')
-                <p class="alert alert-danger">{{ $message }}</p>
-                @enderror
-                <textarea placeholder="カジュアルな夜のお出かけにおすすめのスポット" name="comment" id="comment" rows="4" cols="50"></textarea>
-            </div>
-            @if($shop->reservations->isNotEmpty())
-            <input type="hidden" name="reservation_id" value="{{ $shop->reservations->first()->id }}">
-            @endif
-            <div class="review__form__group">
-                <h3>画像の追加</h3>
-                @error('images.*')
-                <p class="alert alert-danger">{{ $message }}</p>
-                @enderror
-                <div class="sell-edit__container--form-tag form-input--style input-file">
-                    <label for="images" class="custom-file-label btn--border-pink--small">クリックして写真を追加</label>
-                    <input type="file" name="images[]" id="images" multiple style="display: none;">
-                    <div class="preview" id="preview"></div>
+                <div class="review__form__group-textarea">
+                    <h3 class="review__form__group__label">口コミを投稿</h3>
+                    @error('comment')
+                    <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                    <textarea placeholder="カジュアルな夜のお出かけにおすすめのスポット" name="comment" id="comment" rows="4" cols="50"></textarea>
                 </div>
-            </div>
-            <input type="hidden" name="status" value="口コミ済み">
+                @if($shop->reservations->isNotEmpty())
+                <input type="hidden" name="reservation_id" value="{{ $shop->reservations->first()->id }}">
+                @endif
+                <div class="review__form__group">
+                    <h3>画像の追加</h3>
+                    @error('images.*')
+                    <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                    <div class="sell-edit__container--form-tag form-input--style input-file">
+                        <label for="images" class="custom-file-label btn--border-pink--small">クリックして写真を追加</label>
+                        <input type="file" name="images[]" id="images" multiple style="display: none;">
+                        <div class="preview" id="preview"></div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <button type="submit">口コミを投稿</button>
-</form>
+    <button id="submitButton" type="submit">口コミを投稿</button>
+</div>
 <script>
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // フォームを取得
+        var form = document.getElementById('myForm');
+
+        // フォームを送信
+        form.submit();
+    });
     //ファイル選択時に選ばれたファイルを一時的に保持するための配列
     let selectedFiles = [];
 

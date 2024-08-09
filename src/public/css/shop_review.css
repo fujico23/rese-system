@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.dropzone {
+    background-color: #eeeeeeee;
+    border: #eeeeeeee;
+}
+
 .review__heading {
     text-align: center;
     margin-bottom: 20px;
@@ -134,7 +139,7 @@
     resize: vertical;
 }
 
-.review__form button {
+.content button {
     display: block;
     margin: 10px auto;
     padding: 10px;

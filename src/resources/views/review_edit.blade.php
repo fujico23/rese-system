@@ -1,14 +1,17 @@
 @extends('layouts/app')
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="{{ asset('css/review_edit.css')}}">
 @endsection
 
 @section('content')
-<form class="review__form" action="{{ route('review.update', [$shop, $review]) }}" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に変更しますか？');">
-    @csrf
-    @method('patch')
-    <div class="review__content">
+
+<div class="review__content">
+    <form id="uploadForm" class="dropzone" action="{{ route('review.update', [$shop, $review]) }}" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に変更しますか？');">
+        @csrf
+        @method('patch')
         <div class="review__form__group">
             <h3>体験を編集してください</h3>
             @error('rating')
@@ -39,6 +42,7 @@
         @endif
         <div class="review__form__group">
             <h3>画像の編集</h3>
+            <div id="error-messages" class="alert alert-danger"></div>
             @error('images.*')
             <p class="alert alert-danger">{{ $message }}</p>
             @enderror
@@ -52,10 +56,79 @@
                 <input type="file" name="images[]" id="images" multiple style="display: none;">
                 <div class="preview" id="preview"></div>
             </div>
+            <div class="dropzone-previews"></div>
         </div>
-    </div>
-    <button type="submit">口コミを編集する</button>
-</form>
+    </form>
+    <button id="submitButton" type="submit">口コミを編集する</button>
+</div>
+
+<script>
+    document.getElementById('submitButton').addEventListener('click', function() {
+        document.getElementById('uploadForm').submit();
+    });
+    Dropzone.options.uploadForm = {
+
+        withCredentials: true,
+        paramName: "images",
+        autoProcessQueue: false,
+        dictDefaultMessage: "ここに画像をドラッグ＆ドロップしてください",
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 5,
+        addRemoveLinks: true,
+        init: function() {
+            var myDropzone = this;
+
+            // 送信ボタンのクリックイベントを監視
+            document.getElementById('submitButton').addEventListener('click', function(e) {
+                e.preventDefault(); // デフォルトの送信を防ぐ
+                e.stopPropagation();
+
+                // 追加したフォームデータ
+                myDropzone.on("sendingmultiple", function(files, xhr, formData) {
+                    formData.append("rating", document.querySelector('input[name="rating"]:checked').value);
+                    formData.append("comment", document.getElementById("comment").value);
+                });
+
+                // キューの処理を開始
+                myDropzone.processQueue();
+            });
+
+            // アップロード成功時の処理
+            this.on("successmultiple", function(files, response) {
+                console.log("アップロードが成功しました。", response);
+            });
+
+            // アップロード失敗時の処理
+            this.on("errormultiple", function(files, response) {
+                // エラーメッセージ表示用の要素をクリア
+                var errorMessages = document.getElementById('error-messages');
+                errorMessages.innerHTML = '';
+
+                files.forEach(file => {
+                    var errorMessage = document.createElement('div');
+                    errorMessage.className = 'alert alert-danger';
+
+                    // サーバからのエラーメッセージを取得して表示
+                    if (response.errors) {
+                        for (const [field, messages] of Object.entries(response.errors)) {
+                            messages.forEach(message => {
+                                var errorText = document.createElement('div');
+                                errorText.textContent = message;
+                                errorMessages.appendChild(errorText);
+                            });
+                        }
+                    } else {
+                        errorMessage.textContent = 'アップロードに失敗しました。';
+                        file.previewElement.appendChild(errorMessage);
+                    }
+                });
+
+                console.error("アップロードに失敗しました。", response);
+            });
+        }
+    }
+</script>
 <script>
     //ファイル選択時に選ばれたファイルを一時的に保持するための配列
     let selectedFiles = [];
