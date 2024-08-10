@@ -144,8 +144,8 @@
 
 .shop__img img {
     width: 100%;
-    height: auto;
-    max-height: 150px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 .shop__details {

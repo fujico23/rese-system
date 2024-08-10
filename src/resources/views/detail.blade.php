@@ -76,9 +76,9 @@
                         <p class="star{{ $reservation->review->rating }}"></p>
                         <p class="comment">{{ $reservation->review->comment }}</p>
                         @if ($reservation->review->images->isNotEmpty())
-                        <div>
+                        <div class="review-image__content">
                             @foreach ($reservation->review->images as $image)
-                            <img src="{{ $image->image_url }}" alt="Review Image" width="100">
+                            <img src="{{ $image->image_url }}" alt="Review Image">
                             @endforeach
                         </div>
                         @endif

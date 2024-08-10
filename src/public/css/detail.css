@@ -70,6 +70,8 @@
 .shop__img,
 .shop__img img {
     width: 100%;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
 }
 
 .hashtag {
@@ -200,6 +202,12 @@
 
 .review-section a {
     text-align: center;
+}
+
+.review-image__content img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
 /* 予約側スタイル */
