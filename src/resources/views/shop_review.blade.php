@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="review">
-            <form id="myForm" class="review__form" action="{{ route('shop.review.store', $shop) }}" method="post" enctype="multipart/form-data">
+            <form id="uploadForm" class="dropzone" action="{{ route('shop.review.store', $shop) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="review__form__group">
                     <h3>体験を評価してください</h3>
@@ -96,12 +96,11 @@
 </div>
 <script>
     document.getElementById('submitButton').addEventListener('click', function() {
-        // フォームを取得
-        var form = document.getElementById('myForm');
-
-        // フォームを送信
+        var form = document.getElementById('uploadForm');
         form.submit();
     });
+</script>
+<script>
     //ファイル選択時に選ばれたファイルを一時的に保持するための配列
     let selectedFiles = [];
 

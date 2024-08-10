@@ -10,6 +10,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMailController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\LoginController;
@@ -76,6 +77,10 @@ Route::middleware('role')->group(function () {
         Route::delete('{reservation}/delete', [ReviewController::class, 'destroy'])->name('review.delete');
         Route::get('/{shop}/{reservation}/edit', [ReviewController::class, 'edit'])->name('review.edit');
         Route::patch('/{shop}/{review}/update', [ReviewController::class, 'update'])->name('review.update');
+
+        Route::post('/{shop}/{review}/upload-image', [ImageController::class, 'upload'])->name('image.upload');
+        Route::delete('/reviews/{review}/images', [ImageController::class, 'deleteMultipleImages'])->name('reviews.images.delete-multiple');
+
 
         //(店舗編集機能・予約閲覧機能(role_id 1 もしくは　2のみ遷移)
         Route::middleware('shop.management')->group(function () {

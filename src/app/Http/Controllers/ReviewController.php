@@ -36,23 +36,6 @@ class ReviewController extends Controller
             ];
             $review = Review::create($reviewData);
 
-            // 画像のアップロードとReviewImagesテーブルへの保存
-            /* if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $file) {
-                    $extension = $file->getClientOriginalExtension();
-                    $fileName = uniqid() . '.' . $extension;
-                    $path = $file->storeAs('review_images/' . $review->id, $fileName, 'public');
-                    $image_url = Storage::url($path);
-
-                    // ReviewImageテーブルに保存
-                    ReviewImage::create([
-                        'review_id' => $review->id,
-                        'image_url' => $image_url,
-                    ]);
-                }
-            }*/
-
-
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $file) {
                     $path = $file->store('review_images/' . $review->id, 'public');
@@ -97,13 +80,6 @@ class ReviewController extends Controller
     }
     public function update(ReviewRequest $request, Shop $shop, Review $review)
     {
-        try {
-            $validatedData = $request->validated();
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // バリデーションエラーがある場合、JSONでエラーメッセージを返す
-            return response()->json(['errors' => $e->errors()], 422);
-        }
-
         $review->update([
             'comment' => $request->input('comment'),
             'rating' => $request->input('rating'),
@@ -121,11 +97,7 @@ class ReviewController extends Controller
                 ]);
             }
         }
-        // AJAXリクエストであればJSONを返す
-        if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 'コメントが編集されました']);
-        }
 
-        return redirect()->route('shop.detail', compact('shop'))->with('success', 'コメントが編集されました');
+        return back()->with('success', 'コメントが編集されました');
     }
 }
