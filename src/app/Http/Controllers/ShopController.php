@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ShopRequest;
 use Exception;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
