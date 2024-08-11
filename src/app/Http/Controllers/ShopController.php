@@ -59,15 +59,18 @@ class ShopController extends Controller
                 break;
         }
 
-        //ログインしている場合、予約とお気に入りを取得
-        if ($user) {
-            // 予約している店舗のIDを取得後、予約が入っている店舗情報を取得
-            //予約日時が過ぎた口コミ未送信のshopIdを取得
+        if ($user && $user->role_id == 3) {
+            // 口コミが未送信の予約済みの店舗IDを取得(ただし既に口コミ済みの予約がある場合は対象外)
             $reservedShopIds = Reservation::where('user_id', $user->id)
                 ->where('status', '予約済み')
                 ->whereDate('reservation_date', '<', now())
+                ->whereDoesntHave('shop.reservations', function ($query) use ($user) {
+                    $query->where('user_id', $user->id)
+                        ->where('status', '口コミ済み');
+                })
                 ->pluck('shop_id')
                 ->toArray();
+
             // 各店舗に予約済みか、お気に入りに登録されているかのフラグを設定
             $favoriteShopIds = $user->favorites->pluck('shop_id')->toArray();
             $shops->each(function ($shop) use ($reservedShopIds, $favoriteShopIds) {
