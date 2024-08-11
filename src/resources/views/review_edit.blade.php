@@ -47,6 +47,7 @@
             <p class="alert alert-danger">{{ $message }}</p>
             @enderror
             <textarea name="comment" id="comment" rows="4" cols="50">{{ $review->comment }}</textarea>
+            <div id="charCount">/400(最大文字数)</div>
         </div>
         <button id="submitReviewButton" type="submit">口コミを編集する</button>
         @if($shop->reservations->isNotEmpty())
@@ -86,11 +87,17 @@
     document.getElementById('submitReviewButton').addEventListener('click', function() {
         document.getElementById('reviewForm').submit();
     });
+
+    document.getElementById('comment').addEventListener('input', function() {
+        var charCount = this.value.length;
+        document.getElementById('charCount').innerText = charCount + '/400(最大文字数)';
+    });
+
     Dropzone.options.uploadForm = {
         withCredentials: true,
         paramName: "images",
         autoProcessQueue: false,
-        dictDefaultMessage: "クリックして写真を追加(またはドロップアンドドラッグ)",
+        dictDefaultMessage: "クリックして写真を追加(またはドロッグアンドドラッグ)",
         uploadMultiple: true,
         parallelUploads: 5,
         maxFiles: 5,

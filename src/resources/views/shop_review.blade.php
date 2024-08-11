@@ -51,7 +51,10 @@
             <form id="uploadForm" class="dropzone" action="{{ route('shop.review.store', $shop) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="review__form__group">
-                    <h3>体験を評価してください</h3>
+                    <div class="review__form__group__header">
+                        <h3>体験を評価してください</h3>
+                        <span class="require">必須</span>
+                    </div>
                     @error('rating')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
@@ -69,11 +72,15 @@
                     </div>
                 </div>
                 <div class="review__form__group-textarea">
-                    <h3 class="review__form__group__label">口コミを投稿</h3>
+                    <div class="review__form__group__header">
+                        <h3 class="review__form__group__label">口コミを投稿</h3>
+                        <span class="require">必須</span>
+                    </div>
                     @error('comment')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                     <textarea placeholder="カジュアルな夜のお出かけにおすすめのスポット" name="comment" id="comment" rows="4" cols="50"></textarea>
+                    <div id="charCount">/400(最大文字数)</div>
                 </div>
                 @if($shop->reservations->isNotEmpty())
                 <input type="hidden" name="reservation_id" value="{{ $shop->reservations->first()->id }}">
@@ -98,6 +105,10 @@
     document.getElementById('submitButton').addEventListener('click', function() {
         var form = document.getElementById('uploadForm');
         form.submit();
+    });
+    document.getElementById('comment').addEventListener('input', function() {
+        var charCount = this.value.length;
+        document.getElementById('charCount').innerText = charCount + '/400(最大文字数)';
     });
 </script>
 <script>

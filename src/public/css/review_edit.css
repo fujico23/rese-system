@@ -24,6 +24,10 @@
     margin-bottom: 20px;
 }
 
+#charCount {
+    float: right;
+}
+
 .review__form__group-evaluation {
     display: flex;
     flex-direction: row-reverse;

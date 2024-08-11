@@ -96,9 +96,26 @@
 .alert-danger {
     margin: 10px auto;
 }
+.review__form__group__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.require {
+    color: #ffecea;
+    margin-left: 5px;
+    font-size: 70%;
+    padding: 2px 5px;
+    background-color: #ea565a;
+    border-radius: 5px;
+}
 .review__form__group,
 .review__form__group-textarea {
     margin-bottom: 20px;
+}
+
+#charCount {
+    float: right;
 }
 
 .review__form__group-evaluation {

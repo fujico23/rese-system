@@ -25,8 +25,8 @@ class ImageRequest extends FormRequest
     {
         return [
             'review_id' => 'required|exists:reviews,id',
-            'images' => 'nullable|array', // imagesが配列かどうか確認
-            'images.*' => 'image|mimes:jpg,jpeg,png,PNG|max:4048', // 各ファイルが画像であるか確認
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,PNG|max:4048',
         ];
     }
 
@@ -34,7 +34,7 @@ class ImageRequest extends FormRequest
     {
         return [
             'images.*.mimes' => 'jpeg,png形式でアップロードして下さい',
-            'images.*.max' => '各画像のサイズは4MB以下にして下さい', // maxエラーのメッセージを追加
+            'images.*.max' => '各画像のサイズは4MB以下にして下さい',
         ];
     }
 }

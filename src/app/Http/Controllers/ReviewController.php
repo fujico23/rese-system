@@ -9,7 +9,6 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ReviewImage;
 use App\Models\Reservation;
-use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
@@ -84,19 +83,6 @@ class ReviewController extends Controller
             'comment' => $request->input('comment'),
             'rating' => $request->input('rating'),
         ]);
-
-        // 画像のアップロードとReviewImagesテーブルへの保存
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $file) {
-                $path = $file->store('review_images/' . $review->id, 'public');
-                $image_url = Storage::url($path);
-
-                ReviewImage::create([
-                    'review_id' => $review->id,
-                    'image_url' => $image_url,
-                ]);
-            }
-        }
 
         return back()->with('success', 'コメントが編集されました');
     }
