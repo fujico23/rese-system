@@ -1,3 +1,14 @@
+.return {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.return:hover {
+    color: rgb(139, 139, 139);
+}
 .review__content {
     display: flex;
 }

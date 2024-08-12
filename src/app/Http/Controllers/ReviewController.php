@@ -49,10 +49,24 @@ class ReviewController extends Controller
 
             $reservation->update(['status' => '口コミ済み']);
 
-            return view('review_done', compact('shop'));
+            // リクエストがAJAXかどうかを確認
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('review.done', compact('shop'))
+                ]);
+            } else {
+                // 通常のリクエストの場合は、直接リダイレクト
+                return redirect()->route('review.done', compact('shop'));
+            }
         } else {
             return back()->with('error', '予約が見つかりませんでした。');
         }
+    }
+
+    public function done(Shop $shop)
+    {
+        return view('review_done', compact('shop'));
     }
 
     public function index(Shop $shop)

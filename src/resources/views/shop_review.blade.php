@@ -11,6 +11,7 @@
     @foreach ($errors->all() as $error)
     <div class="alert alert-danger review-alert-danger">{{$error}}</div>
     @endforeach
+    <a class="return" href="{{ route('shop.detail', $shop) }}"> &lt;</a>
     <div class="content">
         <div class="review__content">
             <div class="shop-card__group">
@@ -139,6 +140,14 @@
                         dropzoneInstance.processQueue();
                     } else {
                         form.submit();
+                    }
+                });
+
+
+                this.on("successmultiple", function(files, response) {
+                    // 成功した場合、指定されたURLにリダイレクト
+                    if (response.success) {
+                        window.location.href = response.redirect_url;
                     }
                 });
 
