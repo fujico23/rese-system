@@ -88,8 +88,8 @@
     width: 55%;
     padding: 50px;
 }
-.alert-danger {
-    margin: 10px auto;
+.review-alert-danger {
+    margin: 0px;
 }
 .review__form__group__header {
     display: flex;

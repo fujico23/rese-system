@@ -32,8 +32,15 @@ class UsersTableSeeder extends Seeder
             'role_id' => '3',
             'name' => '利用者三郎',
             'email' => 'test3@example.com',
-            'email_verified_at' => null,
+            'email_verified_at' => now(),
             'password' => bcrypt('33333333'),
+        ]);
+        User::create([
+            'role_id' => '3',
+            'name' => '利用者花子',
+            'email' => 'test4@example.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('44444444'),
         ]);
     }
 }
