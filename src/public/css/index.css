@@ -190,6 +190,11 @@
         justify-content: space-between;
     }
 
+    .sort {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+
     .header__search-form__inner__group__item {
         width: 48%;
         padding: 7px;
@@ -206,13 +211,13 @@
     .search-form__genre {
         width: 48%;
         text-align: center;
-        padding: 14px 0px;
+        padding: 10px 0px;
     }
 
     .header__search-form__inner__group__keyword {
         display: flex;
         width: 100%;
-        padding: 7px;
+
         border: 1px solid #ccc;
         border-radius: 3px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

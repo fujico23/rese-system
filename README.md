@@ -87,7 +87,7 @@
 
 - 飲食店お気に入り登録の追加と削除(ゲストはログイン・メール未認証ユーザーは verify-email に遷移)
 - ログインユーザーかつメール未認証ユーザーの場合、メール認証を促すモーダルウィンドウを表示
-- 利用者権限を持つ一般ユーザーが予約した店舗は~~予約翌日になると優先的に先頭に表示され~~、ペンマークのアイコンが表示されレビューを促す
+- 利用者権限を持つ一般ユーザーが予約した店舗は~~予約翌日になると優先的に先頭に表示され~~、ペンマークのアイコンが表示されレビューを促す。ただし一度口コミをしている店舗は表示されない。
 
 ###### ※店舗一覧ソート機能を優先したため、予約翌日に先頭に表示させる機能は削除
 
@@ -134,7 +134,7 @@
 
 ##### ・該当の店舗に予約をしていて、reservations テーブルの status：『予約済み』、reservation_data：予約当日以降」
 
-###### ※動作確認をすぐ行いたい場合は [ReservationRequest](/src/app/Http/Requests/ReservationRequest.php) の'reservation_date' => 'required|date|after_or_equal:today|before_or_equal:2 months',をコメントアウトして、直下のコメントアウト'reservation_date' => 'required',を有効にしてください
+###### ※「口コミ機能」は予約と紐付いているため、動作確認をすぐ行いたい場合は [ReservationRequest](/src/app/Http/Requests/ReservationRequest.php) の'reservation_date' => 'required|date|after_or_equal:today|before_or_equal:2 months',をコメントアウトして、直下のコメントアウト'reservation_date' => 'required',を有効にしてください
 
 ###### ※Pro 入会テストの「口コミ機能」を優先したため、該当の店舗に対し、既に同一の一般ユーザーが予約の履歴があり、口コミをしている(status:『口コミ済み』のレコードがある)場合、「1 店舗に対し 1 件以上の口コミを追加することができない」という条件に倣い、口コミの投稿は出来ないように変更
 
