@@ -45,6 +45,18 @@ class Shop extends Model
         return $this->hasMany(Course::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasManyThrough(Review::class, Reservation::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()
+            ->selectRaw('AVG(rating) as average_rating')
+            ->groupBy('shops.id');
+    }
+
     public function scopeGenreSearch($query, $genre_id)
     {
         if (!empty($genre_id)) {

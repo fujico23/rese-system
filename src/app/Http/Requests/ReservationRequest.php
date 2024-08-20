@@ -29,8 +29,8 @@ class ReservationRequest extends FormRequest
   public function rules()
   {
     return [
-      'reservation_date' => 'required|date|after_or_equal:today|before_or_equal:2 months',
-      //'reservation_date' => 'required',
+      //'reservation_date' => 'required|date|after_or_equal:today|before_or_equal:2 months',
+      'reservation_date' => 'required',
       'reservation_time' => 'required',
       'number_of_guests' => 'required',
       'course_id' => 'required'

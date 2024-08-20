@@ -56,6 +56,20 @@ class ShopController extends Controller
                     ->orderByRaw('views = 0, views ASC')
                     ->get();
                 break;
+            case 'rating_high':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->withAvg('reviews', 'rating')
+                    ->orderByDesc('reviews_avg_rating')
+                    ->get();
+                break;
+            case 'rating_low':
+                $shops = Shop::with(['area', 'genre', 'images', 'reservations.review'])
+                    ->where('is_active', true)
+                    ->withAvg('reviews', 'rating')
+                    ->orderByRaw('reviews_avg_rating = 0 DESC, reviews_avg_rating ASC')
+                    ->get();
+                break;
         }
 
         if ($user && $user->role_id == 3) {

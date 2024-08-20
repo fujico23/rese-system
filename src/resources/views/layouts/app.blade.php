@@ -39,10 +39,12 @@
                         <form action="{{ route('index') }}" method="get">
                             @csrf
                             <select name="sort" onchange="this.form.submit()">
-                                <option value="default" {{ request('sort') == 'default' ? 'selected' : '' }}>並び替え：評価高/低</option>
+                                <option value="default" {{ request('sort') == 'default' ? 'selected' : '' }}>並び替え：評価/閲覧</option>
                                 <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
-                                <option value="view_many" {{ request('sort') == 'view_many' ? 'selected' : '' }}>評価が高い順</option>
-                                <option value="view_few" {{ request('sort') == 'view_few' ? 'selected' : '' }}>評価が低い順</option>
+                                <option value="view_many" {{ request('sort') == 'view_many' ? 'selected' : '' }}>閲覧が多い順</option>
+                                <option value="view_few" {{ request('sort') == 'view_few' ? 'selected' : '' }}>閲覧が少ない順</option>
+                                <option value="rating_high" {{ request('sort') == 'rating_high' ? 'selected' : '' }}>評価が高い順</option>
+                                <option value="rating_low" {{ request('sort') == 'rating_low' ? 'selected' : '' }}>評価が低い順</option>
                             </select>
                         </form>
                     </div>
